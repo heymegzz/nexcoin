@@ -1,82 +1,89 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 
 const Navbar = () => {
   const [isClick, setIsClick] = useState(false);
+  const router = useRouter();
 
   const toggleNavbar = () => {
     setIsClick(!isClick);
   };
 
+  const handleSignUp = () => {
+    router.push('/signup');
+  };
+
+ 
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      
+      if (e.target.closest('.navbar-toggle')) {
+        return;
+      }
+    
+      if (isClick && (e.target.tagName === 'A' || !e.target.closest('.navbar-mobile'))) {
+        setIsClick(false);
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, [isClick]);
+
   return (
-    <nav className="bg-black border-b border-yellow-900/20 font-['Inter',_system-ui,_sans-serif] tracking-tight">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-3 items-center h-16">
-          
-         
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-layout">
+          <div className="navbar-brand">
+            <Link href="/" className="navbar-logo">
               <Logo />
-            </div>
+            </Link>
           </div>
 
-          <div className="hidden md:flex justify-center">
-            <div className="flex items-center justify-center space-x-12">
-              <a
-                href="/"
-                className="text-white hover:text-yellow-400 text-base font-light transition-all duration-200"
-              >
+       
+          <div className="navbar-menu">
+            <div className="navbar-menu-items">
+              <Link href="/" className="navbar-link">
                 Home
-              </a>
-              <a
-                href="/"
-                className="text-white hover:text-yellow-400 text-base font-light transition-all duration-200"
-              >
+              </Link>
+              <Link href="/markets" className="navbar-link">
                 Markets
-              </a>
-              <a
-                href="/"
-                className="text-white hover:text-yellow-400 text-base font-light transition-all duration-200"
-              >
+              </Link>
+              <Link href="/trading" className="navbar-link">
                 Trading
-              </a>
-              <a
-                href="/"
-                className="text-white hover:text-yellow-400 text-base font-light transition-all duration-200"
-              >
+              </Link>
+              <Link href="/wallet" className="navbar-link">
                 Wallet
-              </a>
+              </Link>
             </div>
           </div>
 
-          <div className="hidden md:flex items-center justify-end space-x-3">
-            <a
-              href="/login"
-              className="text-white hover:text-yellow-400 text-base font-light px-3 py-1 transition-all duration-200"
-            >
+          <div className="navbar-auth">
+            <Link href="/login" className="navbar-login">
               Login
-            </a>
-            <a
-              href="/signup"
-              className="bg-black text-yellow-400 border border-yellow-400 hover:bg-yellow-400 hover:text-black text-base font-light px-4 py-1.5 rounded-md transition-all duration-200"
-            >
+            </Link>
+            <button onClick={handleSignUp} className="navbar-signup-btn">
               Sign Up
-            </a>
+            </button>
           </div>
   
-
-          <div className="md:hidden flex items-center justify-end col-span-2">
+          <div className="navbar-mobile-menu-toggle">
             <button
-              className="inline-flex items-center justify-center p-2 rounded-md text-yellow-400 hover:text-black hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500"
+              className="navbar-toggle"
               onClick={toggleNavbar}
+              aria-label="Toggle navigation menu"
             >
               <svg
-                className="h-6 w-6"
+                className="navbar-toggle-icon"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                width="24"
+                height="24"
               >
                 {isClick ? (
                   <path
@@ -99,49 +106,28 @@ const Navbar = () => {
         </div>
       </div>
 
-
-      {isClick && (
-        <div className="md:hidden px-2 pt-2 pb-3 space-y-1 bg-black/95 backdrop-blur-sm">
-          <a
-            href="/"
-            className="block text-white hover:text-yellow-400 px-3 py-2 text-base font-light transition-all duration-200"
-          >
-            Home
-          </a>
-          <a
-            href="/"
-            className="block text-white hover:text-yellow-400 px-3 py-2 text-base font-light transition-all duration-200"
-          >
-            Markets
-          </a>
-          <a
-            href="/"
-            className="block text-white hover:text-yellow-400 px-3 py-2 text-base font-light transition-all duration-200"
-          >
-            Trading
-          </a>
-          <a
-            href="/"
-            className="block text-white hover:text-yellow-400 px-3 py-2 text-base font-light transition-all duration-200"
-          >
-            Wallet
-          </a>
-          <div className="pt-4 pb-2 border-t border-yellow-900/20 flex flex-col space-y-2">
-            <a
-              href="/login"
-              className="text-white hover:text-yellow-400 px-3 py-2 text-base font-light transition-all duration-200"
-            >
-              Login
-            </a>
-            <a
-              href="/signup"
-              className="mx-3 bg-black text-yellow-400 border border-yellow-400 text-center hover:bg-yellow-400 hover:text-black py-2 text-base font-light rounded-md transition-all duration-200"
-            >
-              Sign Up
-            </a>
-          </div>
+      <div className={`navbar-mobile ${isClick ? 'open' : ''}`}>
+        <Link href="/" className="navbar-mobile-link">
+          Home
+        </Link>
+        <Link href="/markets" className="navbar-mobile-link">
+          Markets
+        </Link>
+        <Link href="/trading" className="navbar-mobile-link">
+          Trading
+        </Link>
+        <Link href="/wallet" className="navbar-mobile-link">
+          Wallet
+        </Link>
+        <div className="navbar-mobile-auth">
+          <Link href="/login" className="navbar-mobile-login">
+            Login
+          </Link>
+          <button onClick={handleSignUp} className="navbar-mobile-signup-btn">
+            Sign Up
+          </button>
         </div>
-      )}
+      </div>
     </nav>
   );
 };

@@ -1,146 +1,146 @@
-/* Logo styles */
+
 .logo {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .logo-container {
-    position: relative;
-  }
-  
-  .logo-wrapper {
-    position: relative;
-    height: 2.75rem;
-    width: 2.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s;
-    margin-top: 0.125rem;
-  }
-  
-  .logo-wrapper.hovered {
-    transform: scale(1.1);
-  }
-  
-  .logo-background {
-    position: absolute;
-    inset: 0;
-    background-color: var(--color-black);
-    border-radius: 0.75rem;
-    transition: all 0.5s;
-  }
-  
-  .logo-background.rotate {
-    transform: rotate(45deg);
-  }
-  
-  .logo-inner {
-    position: absolute;
-    inset: 0.125rem;
-    background-color: var(--color-black);
-    border: 1px solid var(--color-yellow-border);
-    border-radius: 0.5rem;
-    transition: all 0.5s;
-  }
-  
-  .logo-inner.rotate {
-    transform: rotate(45deg) scale(0.95);
-  }
-  
-  .logo-path {
-    transition: all 1s;
-    stroke-dasharray: 100;
-  }
-  
-  .logo-path.animate {
-    stroke-dashoffset: 0;
-  }
-  
-  .logo-path.default {
-    stroke-dashoffset: 100;
-  }
-  
-  .logo-circle {
-    transition: all 1s;
-  }
-  
-  .logo-circle.delayed {
-    opacity: 0;
-  }
-  
-  .logo-circle.visible {
-    opacity: 1;
-  }
-  
-  .logo-circle.delay-300 {
-    transition-delay: 0.3s;
-  }
-  
-  .logo-circle.delay-600 {
-    transition-delay: 0.6s;
-  }
-  
-  .logo-square {
-    position: relative;
-    height: 1.5rem;
-    width: 1.5rem;
-    background-color: var(--color-yellow-500);
-    transform: rotate(45deg);
-    transition: all 0.7s;
-    z-index: 10;
-  }
-  
-  .logo-square.rotate {
-    transform: rotate(225deg);
-  }
-  
-  .logo-square-inner {
-    position: absolute;
-    inset: 0.125rem;
-    background-color: var(--color-black);
-  }
-  
-  .logo-letter {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s;
-    opacity: 0.9;
-    transform: rotate(315deg);
-  }
-  
-  .logo-letter.rotate {
-    opacity: 1;
-    transform: rotate(135deg);
-  }
-  
-  .logo-letter-text {
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: var(--color-yellow-400);
-  }
-  
-  .logo-ring {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    border-radius: 9999px;
-    border: 1px solid rgba(245, 158, 11, 0.2);
-    transition: all 0.7s;
-    transform: scale(0.8);
-  }
-  
-  .logo-ring.rotate {
-    transform: scale(0.9) rotate(90deg);
-  }
-  
-  .logo-svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo-container {
+  position: relative;
+}
+
+.logo-wrapper {
+  position: relative;
+  height: 2.75rem;
+  width: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+  margin-top: 0.125rem;
+}
+
+.logo-wrapper.hovered {
+  transform: scale(1.1);
+}
+
+.logo-background {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-black);
+  border-radius: 0.75rem;
+  transition: all 0.5s;
+}
+
+.logo-background.rotate {
+  transform: rotate(45deg);
+}
+
+.logo-inner {
+  position: absolute;
+  inset: 0.125rem;
+  background-color: var(--color-black);
+  border: 1px solid var(--color-yellow-border);
+  border-radius: 0.5rem;
+  transition: all 0.5s;
+}
+
+.logo-inner.rotate {
+  transform: rotate(45deg) scale(0.95);
+}
+
+.logo-path {
+  transition: all 1s;
+  stroke-dasharray: 100;
+}
+
+.logo-path.animate {
+  stroke-dashoffset: 0;
+}
+
+.logo-path.default {
+  stroke-dashoffset: 100;
+}
+
+.logo-circle {
+  transition: all 1s;
+}
+
+.logo-circle.delayed {
+  opacity: 0;
+}
+
+.logo-circle.visible {
+  opacity: 1;
+}
+
+.logo-circle.delay-300 {
+  transition-delay: 0.3s;
+}
+
+.logo-circle.delay-600 {
+  transition-delay: 0.6s;
+}
+
+.logo-square {
+  position: relative;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: var(--color-yellow-500);
+  transform: rotate(45deg);
+  transition: all 0.7s;
+  z-index: 10;
+}
+
+.logo-square.rotate {
+  transform: rotate(225deg);
+}
+
+.logo-square-inner {
+  position: absolute;
+  inset: 0.125rem;
+  background-color: var(--color-black);
+}
+
+.logo-letter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+  opacity: 0.9;
+  transform: rotate(315deg);
+}
+
+.logo-letter.rotate {
+  opacity: 1;
+  transform: rotate(135deg);
+}
+
+.logo-letter-text {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--color-yellow-400);
+}
+
+.logo-ring {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  transition: all 0.7s;
+  transform: scale(0.8);
+}
+
+.logo-ring.rotate {
+  transform: scale(0.9) rotate(90deg);
+}
+
+.logo-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+} 

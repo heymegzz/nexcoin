@@ -2,113 +2,117 @@ import React from "react";
 import Navbar from "../components/Navbar";
 
 export default function Signup() {
+ 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="main">
       <Navbar />
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-md mx-auto bg-black/50 p-8 rounded-lg border border-yellow-900/20">
-          <h1 className="text-2xl font-light text-center mb-8 text-yellow-400">Create an Account</h1>
+      <div className="main-content">
+        <div className="auth-container">
+          <h1 className="auth-title">Create an Account</h1>
           
-          <form className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-light mb-2" htmlFor="first-name">
+          <form className="auth-form">
+            <div className="form-row">
+              <div className="form-group half">
+                <label className="form-label" htmlFor="first-name">
                   First Name
                 </label>
                 <input
-                  className="w-full bg-black border border-yellow-900/30 rounded px-3 py-2 focus:outline-none focus:border-yellow-400 text-white"
+                  className="form-input"
                   type="text"
                   id="first-name"
                   placeholder="First name"
+                  autoComplete="given-name"
                 />
               </div>
               
-              <div>
-                <label className="block text-sm font-light mb-2" htmlFor="last-name">
+              <div className="form-group half">
+                <label className="form-label" htmlFor="last-name">
                   Last Name
                 </label>
                 <input
-                  className="w-full bg-black border border-yellow-900/30 rounded px-3 py-2 focus:outline-none focus:border-yellow-400 text-white"
+                  className="form-input"
                   type="text"
                   id="last-name"
                   placeholder="Last name"
+                  autoComplete="family-name"
                 />
               </div>
             </div>
             
-            <div>
-              <label className="block text-sm font-light mb-2" htmlFor="email">
+            <div className="form-group">
+              <label className="form-label" htmlFor="email">
                 Email
               </label>
               <input
-                className="w-full bg-black border border-yellow-900/30 rounded px-3 py-2 focus:outline-none focus:border-yellow-400 text-white"
+                className="form-input"
                 type="email"
                 id="email"
                 placeholder="Enter your email"
+                autoComplete="email"
               />
             </div>
             
-            <div>
-              <label className="block text-sm font-light mb-2" htmlFor="password">
+            <div className="form-group">
+              <label className="form-label" htmlFor="password">
                 Password
               </label>
               <input
-                className="w-full bg-black border border-yellow-900/30 rounded px-3 py-2 focus:outline-none focus:border-yellow-400 text-white"
+                className="form-input"
                 type="password"
                 id="password"
                 placeholder="Create a password"
+                autoComplete="new-password"
               />
             </div>
             
-            <div>
-              <label className="block text-sm font-light mb-2" htmlFor="confirm-password">
+            <div className="form-group">
+              <label className="form-label" htmlFor="confirm-password">
                 Confirm Password
               </label>
               <input
-                className="w-full bg-black border border-yellow-900/30 rounded px-3 py-2 focus:outline-none focus:border-yellow-400 text-white"
+                className="form-input"
                 type="password"
                 id="confirm-password"
                 placeholder="Confirm your password"
+                autoComplete="new-password"
               />
             </div>
             
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
+            <div className="form-group">
+              <div className="checkbox-container">
                 <input
                   id="terms"
                   name="terms"
                   type="checkbox"
-                  className="h-4 w-4 border-gray-300 rounded accent-yellow-400"
+                  className="form-checkbox"
                 />
-              </div>
-              <div className="ml-3 text-sm">
-                <label htmlFor="terms" className="text-gray-300">
+                <label htmlFor="terms" className="checkbox-label">
                   I agree to the{" "}
-                  <a href="#" className="text-yellow-400 hover:text-yellow-300">
+                  <a href="#" className="form-link">
                     Terms of Service
                   </a>{" "}
                   and{" "}
-                  <a href="#" className="text-yellow-400 hover:text-yellow-300">
+                  <a href="#" className="form-link">
                     Privacy Policy
                   </a>
                 </label>
               </div>
             </div>
             
-            <div>
+            <div className="form-group">
               <button
                 type="submit"
-                className="w-full bg-yellow-400 text-black py-2 px-4 rounded hover:bg-yellow-500 transition-colors font-medium"
+                className="form-button"
               >
                 Create Account
               </button>
             </div>
           </form>
           
-          <div className="mt-6 text-center text-sm">
-            <p className="text-gray-300">
+          <div className="auth-footer">
+            <p className="auth-footer-text">
               Already have an account?{" "}
-              <a href="/login" className="text-yellow-400 hover:text-yellow-300">
+              <a href="/login" className="auth-footer-link">
                 Log in
               </a>
             </p>

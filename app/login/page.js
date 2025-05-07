@@ -3,71 +3,73 @@ import Navbar from "../components/Navbar";
 
 export default function Login() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="main">
       <Navbar />
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-md mx-auto bg-black/50 p-8 rounded-lg border border-yellow-900/20">
-          <h1 className="text-2xl font-light text-center mb-8 text-yellow-400">Login to NexCoin</h1>
+      <div className="main-content">
+        <div className="auth-container">
+          <h1 className="auth-title">Login to NexCoin</h1>
           
-          <form className="space-y-6">
-            <div>
-              <label className="block text-sm font-light mb-2" htmlFor="email">
+          <form className="auth-form">
+            <div className="form-group">
+              <label className="form-label" htmlFor="email">
                 Email
               </label>
               <input
-                className="w-full bg-black border border-yellow-900/30 rounded px-3 py-2 focus:outline-none focus:border-yellow-400 text-white"
+                className="form-input"
                 type="email"
                 id="email"
                 placeholder="Enter your email"
+                autoComplete="email"
               />
             </div>
             
-            <div>
-              <label className="block text-sm font-light mb-2" htmlFor="password">
+            <div className="form-group">
+              <label className="form-label" htmlFor="password">
                 Password
               </label>
               <input
-                className="w-full bg-black border border-yellow-900/30 rounded px-3 py-2 focus:outline-none focus:border-yellow-400 text-white"
+                className="form-input"
                 type="password"
                 id="password"
                 placeholder="Enter your password"
+                autoComplete="current-password"
               />
             </div>
             
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
+            <div className="form-group-row">
+              <div className="checkbox-container">
                 <input
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 border-gray-300 rounded accent-yellow-400"
+                  className="form-checkbox"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
+                <label htmlFor="remember-me" className="checkbox-label">
                   Remember me
                 </label>
               </div>
               
-              <div className="text-sm">
-                <a href="#" className="text-yellow-400 hover:text-yellow-300">
+              <div className="form-link-container">
+                <a href="#" className="form-link">
                   Forgot your password?
                 </a>
               </div>
             </div>
             
-            <div>
+            <div className="form-group">
               <button
                 type="submit"
-                className="w-full bg-yellow-400 text-black py-2 px-4 rounded hover:bg-yellow-500 transition-colors font-medium"
+                className="form-button"
               >
                 Sign in
               </button>
             </div>
           </form>
           
-          <div className="mt-6 text-center text-sm">
-            <p className="text-gray-300">
+          <div className="auth-footer">
+            <p className="auth-footer-text">
               Don't have an account?{" "}
-              <a href="/signup" className="text-yellow-400 hover:text-yellow-300">
+              <a href="/signup" className="auth-footer-link">
                 Sign up
               </a>
             </p>

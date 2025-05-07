@@ -1,7 +1,36 @@
-@import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@import "./styles/reset.css";
+@import "./styles/variables.css";
+@import "./styles/base.css";
+@import "./styles/navbar.css";
+@import "./styles/logo.css";
+@import "./styles/auth.css";
+@import "./styles/animations.css";
+@import "./styles/hero.css";
+@import "./styles/coins.css";
+@import "./styles/coin-detail.css";
+
+
+a, a:link, a:visited, a:hover, a:active, a:focus {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  border: none !important;
+  outline: none !important;
+  color: inherit;
+}
+
+
+body {
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.025em;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  margin: 0;
+  padding: 0;
+}
 
 @layer base {
   :root {
@@ -35,6 +64,7 @@
     }
   }
 }
+
 
 .dark body {
   background-color: black;

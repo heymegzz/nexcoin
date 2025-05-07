@@ -12,15 +12,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "NexCoin - The Future of Cryptocurrency",
+  title: "NexCoin",
   description: "Your gateway to the world of digital assets",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable}`}
       >
         {children}
       </body>
