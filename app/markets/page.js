@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { dummyMarketData } from '../data/dummyMarketData';
+import SparklineChart from '../components/SparklineChart';
 
 // Dummy news data
 const dummyNews = [
@@ -295,13 +296,10 @@ const Markets = () => {
                         : `₹${(coin.market_cap * 83).toLocaleString()}`}
                     </td>
                     <td className="desktop-visible">
-                      <div className="sparkline">
-                        <div 
-                          className={`sparkline-trend ${
-                            coin.price_change_7d >= 0 ? 'positive' : 'negative'
-                          }`}
-                        ></div>
-                      </div>
+                      <SparklineChart
+                        data={coin.sparkline_data}
+                        positive={coin.price_change_7d >= 0}
+                      />
                     </td>
                     <td className="mobile-visible">
                       <button className="trade-button">Trade</button>

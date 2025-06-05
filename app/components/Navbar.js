@@ -16,7 +16,13 @@ const Navbar = () => {
     router.push('/signup');
   };
 
- 
+  const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/markets', label: 'Markets' },
+    { href: '/trading', label: 'Trading' },
+    { href: '/learn', label: 'Learn' },
+  ];
+
   useEffect(() => {
     const handleOutsideClick = (e) => {
       
