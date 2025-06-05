@@ -27,7 +27,6 @@ const HeroSection = () => {
 
     try {
       const data = await searchCoins(value);
-     
       setSearchResults(data.coins ? data.coins.slice(0, 20) : []);
       console.log("Search results:", data); // Debug search results
     } catch (error) {
@@ -39,7 +38,6 @@ const HeroSection = () => {
   };
 
   const handleKeyDown = (e) => {
-  
     if (e.key === 'Enter' && searchResults.length > 0) {
       navigateToCoin(searchResults[0].id);
     }
@@ -51,7 +49,6 @@ const HeroSection = () => {
     setQuery("");
   };
 
- 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -80,8 +77,7 @@ const HeroSection = () => {
             Connect your entire portfolio to track, buy, swap, and stake your assets.
           </p>
           <div className="hero-buttons">
-            <a href="/dashboard" className="hero-btn hero-btn-primary">Connect Portfolio</a>
-            <a href="/about" className="hero-btn hero-btn-secondary">Learn More</a>
+            <a href="/signup" className="hero-btn hero-btn-primary">Get Started</a>
           </div>
         </div>
         

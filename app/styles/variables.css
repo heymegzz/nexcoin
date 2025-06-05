@@ -1,4 +1,3 @@
-
 :root {
     /* Colors */
     --color-black: #000000;
@@ -6,12 +5,24 @@
     --color-yellow-400: #EAB308;
     --color-yellow-500: #F59E0B;
     --color-yellow-900: #713F12;
+    --color-gold: #FFD700;
+    --color-orange: #FFA500;
+    
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, var(--color-gold), var(--color-orange));
+    --gradient-dark: linear-gradient(to bottom, #000000, #0a0a0a);
     
     /* Opacity variants */
     --color-yellow-transparent: rgba(234, 179, 8, 0.8);
     --color-yellow-border: rgba(245, 158, 11, 0.3);
     --color-button-border: rgba(234, 179, 8, 1); /* Full opacity for button borders */
     --color-border: rgba(113, 63, 18, 0.2);
+    --color-gold-transparent: rgba(255, 215, 0, 0.1);
+    
+    /* Glass effect */
+    --glass-background: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-blur: blur(10px);
     
     /* Spacing */
     --spacing-xs: 0.25rem;
