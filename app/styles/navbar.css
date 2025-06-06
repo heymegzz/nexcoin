@@ -4,10 +4,12 @@
     font-family: 'Inter', system-ui, sans-serif;
     letter-spacing: -0.025em;
     padding: var(--spacing-sm) 0;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
-    z-index: var(--z-index-navbar);
+    z-index: 50;
     height: auto;
   }
   

@@ -61,8 +61,8 @@ const Navbar = () => {
               <Link href="/trading" className="navbar-link">
                 Trading
               </Link>
-              <Link href="/wallet" className="navbar-link">
-                Wallet
+              <Link href="/wallets" className="navbar-link">
+                Wallets
               </Link>
             </div>
           </div>
@@ -122,8 +122,8 @@ const Navbar = () => {
         <Link href="/trading" className="navbar-mobile-link">
           Trading
         </Link>
-        <Link href="/wallet" className="navbar-mobile-link">
-          Wallet
+        <Link href="/wallets" className="navbar-mobile-link">
+          Wallets
         </Link>
         <div className="navbar-mobile-auth">
           <Link href="/login" className="navbar-mobile-login">
