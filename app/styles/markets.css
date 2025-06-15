@@ -5,7 +5,6 @@
   padding-top: 2rem;
 }
 
-/* Market Stats Banner */
 .market-stats-banner {
   background: linear-gradient(to right, rgba(255, 215, 0, 0.1), transparent);
   padding: 2rem 0;
@@ -37,7 +36,7 @@
   font-weight: 700;
 }
 
-/* Controls Section */
+
 .markets-controls {
   margin-bottom: 2rem;
 }
@@ -110,7 +109,7 @@
   color: var(--color-black);
 }
 
-/* Market Categories */
+
 .market-categories {
   margin-bottom: 3rem;
 }
@@ -182,7 +181,6 @@
   font-weight: 600;
 }
 
-/* Table Responsive Classes */
 .mobile-visible {
   display: table-cell;
 }
@@ -195,7 +193,6 @@
   display: table-cell;
 }
 
-/* Markets Table */
 .markets-table-container {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -213,7 +210,7 @@
   border-spacing: 0;
 }
 
-/* Table Cell Alignments */
+
 .markets-table th,
 .markets-table td {
   padding: 1rem;
@@ -229,7 +226,7 @@
   border-bottom: 2px solid rgba(255, 215, 0, 0.1);
 }
 
-/* Column-specific alignments */
+
 .markets-table th:first-child,
 .markets-table td:first-child {
   padding-left: 1.5rem;
@@ -270,7 +267,7 @@
   padding-right: 1.5rem;
 }
 
-/* Hover effect for table rows */
+
 .markets-table tbody tr {
   transition: background-color 0.3s ease;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -280,7 +277,7 @@
   background: rgba(255, 215, 0, 0.05);
 }
 
-/* Coin info cell styling */
+
 .coin-info {
   display: flex;
   align-items: center;
@@ -304,7 +301,6 @@
   text-transform: uppercase;
 }
 
-/* Price change styling */
 .price-change {
   font-weight: 600;
   padding: 0.25rem 0.5rem;
@@ -324,7 +320,6 @@
   background: rgba(255, 68, 68, 0.1);
 }
 
-/* Trade button styling */
 .trade-button {
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -342,7 +337,6 @@
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
-/* Auto-refresh styles */
 .auto-refresh-toggle {
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -366,7 +360,6 @@
   font-size: 0.875rem;
 }
 
-/* News Feed Section */
 .news-feed-section {
   padding: 4rem 0;
   background: rgba(255, 255, 255, 0.02);
@@ -425,7 +418,7 @@
   font-size: 0.875rem;
 }
 
-/* Sparkline styles */
+
 .sparkline {
   width: 100px;
   height: 40px;
@@ -444,7 +437,7 @@
   padding: 4px;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 1200px) {
   .desktop-visible {
     display: none;

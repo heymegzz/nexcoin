@@ -11,7 +11,7 @@
   padding: 0 2rem;
 }
 
-/* Chart Section */
+
 .chart-section {
   background: rgba(255, 255, 255, 0.03);
   border-radius: 24px;
@@ -23,7 +23,7 @@
   height: 400px;
 }
 
-/* Trading Section */
+
 .trading-section {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -145,7 +145,7 @@
   color: white;
 }
 
-/* Portfolio Summary */
+
 .portfolio-summary {
   background: rgba(255, 255, 255, 0.03);
   border-radius: 24px;
@@ -225,7 +225,7 @@
   margin-bottom: 0.3rem;
 }
 
-/* Trade History */
+
 .trade-history {
   background: rgba(255, 255, 255, 0.03);
   border-radius: 24px;
@@ -289,7 +289,6 @@ td.sell {
   font-weight: 600;
 }
 
-/* Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -375,7 +374,7 @@ td.sell {
   }
 }
 
-/* Responsive Design */
+
 @media (max-width: 1200px) {
   .container {
     padding: 0 1.5rem;

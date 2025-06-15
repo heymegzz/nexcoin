@@ -6,7 +6,6 @@
   min-height: 100vh;
 }
 
-/* Remove the background effects */
 .features-section::before,
 .features-decoration,
 .crypto-grid,

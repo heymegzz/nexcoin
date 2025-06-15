@@ -15,7 +15,6 @@ import {
 import { dummyMarketData } from '../data/dummyMarketData';
 import '../styles/trading.css';
 
-// Register ChartJS components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -27,7 +26,7 @@ ChartJS.register(
 );
 
 const Trading = () => {
-  // State management
+
   const [selectedCoin, setSelectedCoin] = useState(dummyMarketData.coins[0]);
   const [amount, setAmount] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -36,7 +35,6 @@ const Trading = () => {
   const [tradeHistory, setTradeHistory] = useState([]);
   const [portfolio, setPortfolio] = useState({});
 
-  // Load trade history and portfolio from localStorage on mount
   useEffect(() => {
     const savedTrades = localStorage.getItem('tradeHistory');
     const savedPortfolio = localStorage.getItem('portfolio');
@@ -44,7 +42,7 @@ const Trading = () => {
     if (savedPortfolio) setPortfolio(JSON.parse(savedPortfolio));
   }, []);
 
-  // Generate fake price data for the chart
+
   const generateChartData = () => {
     const labels = Array.from({ length: 24 }, (_, i) => `${i}:00`);
     const basePrice = selectedCoin.price;
@@ -78,7 +76,7 @@ const Trading = () => {
     };
   };
 
-  // Chart options
+
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -151,7 +149,7 @@ const Trading = () => {
     }
   };
 
-  // Handle trade execution
+
   const executeTrade = (type) => {
     if (!amount || !quantity) {
       alert('Please enter both amount and quantity');
@@ -168,12 +166,11 @@ const Trading = () => {
       timestamp: new Date().toISOString(),
     };
 
-    // Update trade history
+
     const updatedHistory = [trade, ...tradeHistory];
     setTradeHistory(updatedHistory);
     localStorage.setItem('tradeHistory', JSON.stringify(updatedHistory));
 
-    // Update portfolio
     const updatedPortfolio = { ...portfolio };
     const coinKey = selectedCoin.symbol.toUpperCase();
     
@@ -204,16 +201,15 @@ const Trading = () => {
     setPortfolio(updatedPortfolio);
     localStorage.setItem('portfolio', JSON.stringify(updatedPortfolio));
 
-    // Show confirmation modal
+ 
     setModalData({ type, details: trade });
     setShowModal(true);
 
-    // Reset form
+
     setAmount('');
     setQuantity('');
   };
 
-  // Calculate total portfolio value
   const calculateTotalValue = () => {
     return Object.entries(portfolio).reduce((total, [symbol, data]) => {
       const coin = dummyMarketData.coins.find(c => c.symbol.toUpperCase() === symbol);
@@ -224,12 +220,12 @@ const Trading = () => {
   return (
     <div className="trading-page">
       <div className="container">
-        {/* Trading Chart */}
+
         <div className="chart-section">
           <Line data={generateChartData()} options={chartOptions} />
         </div>
 
-        {/* Trading Form */}
+  
         <div className="trading-section">
           <div className="trading-form">
             <select 
@@ -282,7 +278,6 @@ const Trading = () => {
             </div>
           </div>
 
-          {/* Portfolio Summary */}
           <div className="portfolio-summary">
             <h2>Portfolio Summary</h2>
             <div className="portfolio-total">
@@ -306,7 +301,6 @@ const Trading = () => {
           </div>
         </div>
 
-        {/* Trade History */}
         <div className="trade-history">
           <h2>Trade History</h2>
           <div className="table-wrapper">
@@ -338,7 +332,6 @@ const Trading = () => {
         </div>
       </div>
 
-      {/* Confirmation Modal */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>

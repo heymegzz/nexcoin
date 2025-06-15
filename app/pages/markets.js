@@ -8,13 +8,12 @@ const Markets = () => {
   const [sortBy, setSortBy] = useState('market_cap');
   const [sortOrder, setSortOrder] = useState('desc');
 
-  // Filter coins based on search query
+
   const filteredCoins = dummyMarketData.coins.filter(coin =>
     coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     coin.symbol.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Sort coins based on selected criteria
   const sortedCoins = [...filteredCoins].sort((a, b) => {
     const multiplier = sortOrder === 'desc' ? -1 : 1;
     return (a[sortBy] - b[sortBy]) * multiplier;
@@ -22,7 +21,7 @@ const Markets = () => {
 
   return (
     <div className="markets-page">
-      {/* Market Stats Banner */}
+
       <div className="market-stats-banner">
         <div className="container">
           <div className="stats-grid">
@@ -54,7 +53,7 @@ const Markets = () => {
         </div>
       </div>
 
-      {/* Controls Section */}
+     
       <div className="markets-controls">
         <div className="container">
           <div className="controls-wrapper">
@@ -66,6 +65,7 @@ const Markets = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="search-input"
               />
+              
             </div>
             <div className="filters-wrapper">
               <select
@@ -97,7 +97,7 @@ const Markets = () => {
         </div>
       </div>
 
-      {/* Market Categories */}
+    
       <div className="market-categories">
         <div className="container">
           <div className="categories-grid">
@@ -166,7 +166,6 @@ const Markets = () => {
         </div>
       </div>
 
-      {/* Markets Table */}
       <div className="markets-table-container">
         <div className="container">
           <div className="table-wrapper">
@@ -223,7 +222,7 @@ const Markets = () => {
                     </td>
                     <td>
                       <div className="sparkline">
-                        {/* Placeholder for sparkline chart */}
+                    
                         <div 
                           className={`sparkline-trend ${
                             coin.price_change_7d >= 0 ? 'positive' : 'negative'

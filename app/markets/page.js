@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { dummyMarketData } from '../data/dummyMarketData';
 import SparklineChart from '../components/SparklineChart';
 
-// Dummy news data
+
 const dummyNews = [
   {
     id: 1,
@@ -59,12 +59,12 @@ const Markets = () => {
   const [autoRefresh, setAutoRefresh] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
 
-  // Auto-refresh logic
+
   useEffect(() => {
     let intervalId;
     if (autoRefresh) {
       intervalId = setInterval(() => {
-        // In a real app, you would fetch new data here
+       
         setLastUpdated(new Date());
       }, 10000);
     }
@@ -85,7 +85,7 @@ const Markets = () => {
 
   return (
     <div className="markets-content">
-      {/* Market Stats Banner */}
+   
       <div className="market-stats-banner">
         <div className="container">
           <div className="stats-grid">
@@ -117,7 +117,7 @@ const Markets = () => {
         </div>
       </div>
 
-      {/* Controls Section */}
+     
       <div className="markets-controls">
         <div className="container">
           <div className="controls-wrapper">
@@ -171,7 +171,6 @@ const Markets = () => {
         </div>
       </div>
 
-      {/* Market Categories */}
       <div className="market-categories">
         <div className="container">
           <div className="categories-grid">
@@ -240,7 +239,6 @@ const Markets = () => {
         </div>
       </div>
 
-      {/* Markets Table */}
       <div className="markets-table-container">
         <div className="container">
           <div className="table-wrapper">
@@ -312,7 +310,7 @@ const Markets = () => {
         </div>
       </div>
 
-      {/* News Feed Section */}
+    
       <div className="news-feed-section">
         <div className="container">
           <h2 className="news-feed-title">Latest Crypto News</h2>
