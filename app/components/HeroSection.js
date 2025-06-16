@@ -95,60 +95,40 @@ const HeroSection = () => {
             </svg>
             <input 
               type="text" 
-              placeholder="Search for any cryptocurrency..." 
               className="hero-search-input"
               value={query}
               onChange={handleSearch}
               onKeyDown={handleKeyDown}
+              placeholder="Search for any cryptocurrency..."
             />
-            {isSearching && (
-              <div className="hero-search-loading">
-                <div className="search-spinner"></div>
-              </div>
-            )}
           </div>
           
-          {showResults && searchResults.length > 0 && (
+          {showResults && (
             <div className="search-results">
-              {searchResults.map((coin) => (
-                <div
-                  key={coin.id}
-                  className="search-result-item"
-                  onClick={() => handleCoinClick(coin.id)}
-                >
-                  {coin.thumb ? (
-                    <img
-                      src={coin.thumb}
-                      alt={coin.name}
-                      className="search-result-icon"
-                    />
-                  ) : (
-                    <div className="search-result-icon-placeholder"></div>
-                  )}
-                  <div className="search-result-info">
-                    <span className="search-result-name">{coin.name}</span>
-                    <span className="search-result-symbol">{coin.symbol}</span>
+              {isSearching ? (
+                <div className="search-loading">Searching...</div>
+              ) : searchResults.length > 0 ? (
+                searchResults.map((coin) => (
+                  <div
+                    key={coin.id}
+                    className="search-result-item"
+                    onClick={() => handleCoinClick(coin.id)}
+                  >
+                    <img src={coin.thumb} alt={coin.name} />
+                    <div className="search-result-info">
+                      <span className="search-result-name">{coin.name}</span>
+                      <span className="search-result-symbol">{coin.symbol}</span>
+                    </div>
                   </div>
-                  <div className="search-result-action">
-                    <span>View →</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-          
-          {showResults && query.trim().length >= 2 && searchResults.length === 0 && !isSearching && (
-            <div className="search-results">
-              <div className="search-no-results">
-                No cryptocurrencies found matching "{query}"
-              </div>
+                ))
+              ) : query.length >= 2 ? (
+                <div className="search-loading">No results found</div>
+              ) : null}
             </div>
           )}
         </div>
         
-        <div className="coins-list-section">
-          <CoinsList />
-        </div>
+        <CoinsList />
       </div>
     </section>
   );
