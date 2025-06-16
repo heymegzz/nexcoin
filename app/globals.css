@@ -1,76 +1,49 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Core styles */
+@import './styles/reset.css';
+@import './styles/variables.css';
+@import './styles/base.css';
+@import './styles/animations.css';
+@import './styles/navbar.css';
+@import './styles/hero.css';
+@import './styles/features.css';
+@import './styles/coins.css';
+@import './styles/markets.css';
+@import './styles/trading.css';
+@import './styles/wallet.css';
+@import './styles/coin-detail.css';
+@import './styles/auth.css';
+@import './styles/footer.css';
+@import './styles/logo.css';
+@import './styles/premium.css';
 
-@import "./styles/reset.css";
-@import "./styles/variables.css";
-@import "./styles/base.css";
-@import "./styles/navbar.css";
-@import "./styles/logo.css";
-@import "./styles/auth.css";
-@import "./styles/animations.css";
-@import "./styles/hero.css";
-@import "./styles/coins.css";
-@import "./styles/coin-detail.css";
-@import "./styles/features.css";
-@import "./styles/premium.css";
-@import "./styles/footer.css";
-@import "./styles/markets.css";
-
-@layer base {
-  :root {
-    --background: 0 0% 0%;
-    --foreground: 265 100% 100%;
-    --accent: 265 100% 54%;
-  }
-
-  body {
-    min-height: 100vh;
-    font-family: var(--font-inter), system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -0.025em;
-    background-color: var(--color-black);
-    color: var(--color-white);
-    margin: 0;
-    padding: 0;
-  }
-
-  main {
-    padding-top: 4.5rem; 
-  }
-
-  a, a:link, a:visited, a:hover, a:active, a:focus {
-    text-decoration: none !important;
-    border-bottom: none !important;
-    border: none !important;
-    outline: none !important;
-    color: inherit;
-  }
+:root {
+  --background: 0 0% 0%;
+  --foreground: 265 100% 100%;
+  --accent: 265 100% 54%;
 }
 
-@layer utilities {
-  .animate-spin-slow {
-    animation: spin 4s linear infinite;
-  }
-  
-  .animate-float-up {
-    animation: floatUp 3s ease-in-out infinite;
-  }
-  
-  @keyframes floatUp {
-    0% {
-      transform: translateY(0) scale(1);
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-10px) scale(0);
-      opacity: 0;
-    }
-  }
+body {
+  min-height: 100vh;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.025em;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding-top: 4.5rem; 
+}
+
+a, a:link, a:visited, a:hover, a:active, a:focus {
+  text-decoration: none;
+  border-bottom: none;
+  border: none;
+  outline: none;
+  color: inherit;
 }
 
 .dark body {
