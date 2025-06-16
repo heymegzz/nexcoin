@@ -43,6 +43,12 @@ const HeroSection = () => {
     }
   };
 
+  const handleCoinClick = (coinId) => {
+    router.push(`/coin/${coinId}`);
+    setShowResults(false);
+    setQuery("");
+  };
+
   const navigateToCoin = (coinId) => {
     router.push(`/coin/${coinId}`);
     setShowResults(false);
@@ -105,16 +111,16 @@ const HeroSection = () => {
           {showResults && searchResults.length > 0 && (
             <div className="search-results">
               {searchResults.map((coin) => (
-                <div 
-                  key={coin.id} 
+                <div
+                  key={coin.id}
                   className="search-result-item"
-                  onClick={() => navigateToCoin(coin.id)}
+                  onClick={() => handleCoinClick(coin.id)}
                 >
                   {coin.thumb ? (
-                    <img 
-                      src={coin.thumb} 
-                      alt={coin.name} 
-                      className="search-result-icon" 
+                    <img
+                      src={coin.thumb}
+                      alt={coin.name}
+                      className="search-result-icon"
                     />
                   ) : (
                     <div className="search-result-icon-placeholder"></div>
@@ -124,7 +130,7 @@ const HeroSection = () => {
                     <span className="search-result-symbol">{coin.symbol}</span>
                   </div>
                   <div className="search-result-action">
-                    View Details →
+                    <span>View →</span>
                   </div>
                 </div>
               ))}
@@ -148,4 +154,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection; 
+export default HeroSection;

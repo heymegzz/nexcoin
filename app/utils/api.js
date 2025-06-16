@@ -46,13 +46,17 @@ export const searchCoins = async (query, maxRetries = 2) => {
   return executeSearch();
 };
 
-export const getCoinDetails = async (id) => {
+export const getCoinDetails = async (coinId) => {
   try {
-    const response = await fetch(`${BASE_URL}/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false&x_cg_demo_api_key=${API_KEY}`);
-    if (!response.ok) throw new Error('Failed to fetch coin details');
+    const response = await fetch(
+      `${BASE_URL}/coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=true&developer_data=false&sparkline=true&x_cg_demo_api_key=${API_KEY}`
+    );
+    if (!response.ok) {
+      throw new Error('Failed to fetch coin details');
+    }
     return await response.json();
   } catch (error) {
     console.error('Error fetching coin details:', error);
-    return null;
+    throw error;
   }
-}; 
+};

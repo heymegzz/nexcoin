@@ -1,14 +1,13 @@
 "use client";
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getCoinDetails } from '../../utils/api';
-import Navbar from '../../components/Navbar';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import '../../styles/coin-detail.css';
 
 export default function CoinDetailPage({ params }) {
-  
-  const resolvedParams = use(params);
-  const coinId = resolvedParams.id;
-  
+  const router = useRouter();
+  const coinId = params.id;
   const [coin, setCoin] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,28 +31,22 @@ export default function CoinDetailPage({ params }) {
 
   if (loading) {
     return (
-      <main className="main">
-        <Navbar />
-        <div className="coin-detail-loading">
-          <div className="coin-detail-spinner"></div>
-          <p>Loading cryptocurrency data...</p>
-        </div>
-      </main>
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading cryptocurrency data...</p>
+      </div>
     );
   }
 
   if (error || !coin) {
     return (
-      <main className="main">
-        <Navbar />
-        <div className="coin-detail-error">
-          <h2>Error</h2>
-          <p>{error || 'Failed to load coin data.'}</p>
-          <Link href="/" className="coin-detail-back-link">
-            Return to Homepage
-          </Link>
-        </div>
-      </main>
+      <div className="error-container">
+        <h2>Error</h2>
+        <p>{error || 'Failed to load coin data.'}</p>
+        <button onClick={() => router.push('/')} className="back-button">
+          Return to Homepage
+        </button>
+      </div>
     );
   }
 
@@ -81,80 +74,75 @@ export default function CoinDetailPage({ params }) {
   };
 
   return (
-    <main className="main">
-      <Navbar />
-      <div className="coin-detail-container">
-        <div className="coin-detail-header">
-          <Link href="/" className="coin-detail-back">
-            ← Back to Home
-          </Link>
-          <div className="coin-detail-title">
-            <img 
-              src={coin.image.large} 
-              alt={coin.name} 
-              className="coin-detail-icon" 
-            />
-            <h1>{coin.name} <span className="coin-detail-symbol">{coin.symbol.toUpperCase()}</span></h1>
-          </div>
-          <div className="coin-detail-price">
-            <h2>${coin.market_data.current_price.usd.toLocaleString()}</h2>
-            {formatPercentage(coin.market_data.price_change_percentage_24h)}
+    <div className="coin-detail-container">
+      <button onClick={() => router.push('/')} className="back-button">
+        ← Back to Home
+      </button>
+      
+      <div className="coin-header">
+        <img 
+          src={coin.image.large} 
+          alt={coin.name} 
+          className="coin-icon" 
+        />
+        <div className="coin-title">
+          <h1 className="coin-name">{coin.name}</h1>
+          <span className="coin-symbol">{coin.symbol.toUpperCase()}</span>
+        </div>
+      </div>
+
+      <div className="coin-price-container">
+        <div className="coin-price">
+          ${coin.market_data.current_price.usd.toLocaleString()}
+        </div>
+        <div className={`price-change ${coin.market_data.price_change_percentage_24h >= 0 ? 'price-change-positive' : 'price-change-negative'}`}>
+          {formatPercentage(coin.market_data.price_change_percentage_24h)}
+        </div>
+      </div>
+
+      <div className="coin-stats">
+        <div className="stat-card">
+          <div className="stat-title">Market Cap</div>
+          <div className="stat-value">{formatNumber(coin.market_data.market_cap.usd)}</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-title">24h Trading Volume</div>
+          <div className="stat-value">{formatNumber(coin.market_data.total_volume.usd)}</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-title">Circulating Supply</div>
+          <div className="stat-value">
+            {coin.market_data.circulating_supply.toLocaleString()} {coin.symbol.toUpperCase()}
           </div>
         </div>
-
-        <div className="coin-detail-grid">
-          <div className="coin-detail-card">
-            <h3>Market Cap</h3>
-            <p>{formatNumber(coin.market_data.market_cap.usd)}</p>
-          </div>
-          <div className="coin-detail-card">
-            <h3>24h Trading Volume</h3>
-            <p>{formatNumber(coin.market_data.total_volume.usd)}</p>
-          </div>
-          <div className="coin-detail-card">
-            <h3>Circulating Supply</h3>
-            <p>{coin.market_data.circulating_supply.toLocaleString()} {coin.symbol.toUpperCase()}</p>
-          </div>
-          <div className="coin-detail-card">
-            <h3>Total Supply</h3>
-            <p>{coin.market_data.total_supply ? coin.market_data.total_supply.toLocaleString() : 'Unlimited'} {coin.symbol.toUpperCase()}</p>
-          </div>
-        </div>
-
-        <div className="coin-detail-content">
-          <div className="coin-detail-about">
-            <h3>About {coin.name}</h3>
-            <div 
-              className="coin-detail-description" 
-              dangerouslySetInnerHTML={{ __html: coin.description.en }}
-            />
-          </div>
-
-          <div className="coin-detail-stats">
-            <h3>Price Statistics</h3>
-            <div className="coin-detail-stat-row">
-              <span>Price Change (24h)</span>
-              <span>{formatPercentage(coin.market_data.price_change_percentage_24h)}</span>
-            </div>
-            <div className="coin-detail-stat-row">
-              <span>Price Change (7d)</span>
-              <span>{formatPercentage(coin.market_data.price_change_percentage_7d)}</span>
-            </div>
-            <div className="coin-detail-stat-row">
-              <span>Price Change (30d)</span>
-              <span>{formatPercentage(coin.market_data.price_change_percentage_30d)}</span>
-            </div>
-            <div className="coin-detail-stat-row">
-              <span>All-Time High</span>
-              <span>${coin.market_data.ath.usd.toLocaleString()}</span>
-            </div>
-            <div className="coin-detail-stat-row">
-              <span>All-Time Low</span>
-              <span>${coin.market_data.atl.usd.toLocaleString()}</span>
-            </div>
+        <div className="stat-card">
+          <div className="stat-title">Total Supply</div>
+          <div className="stat-value">
+            {coin.market_data.total_supply ? coin.market_data.total_supply.toLocaleString() : 'Unlimited'} {coin.symbol.toUpperCase()}
           </div>
         </div>
       </div>
-    </main>
+
+      <div className="coin-description">
+        <h2 className="description-title">About {coin.name}</h2>
+        <div dangerouslySetInnerHTML={{ __html: coin.description.en }} />
+      </div>
+
+      <div className="stat-table">
+        <h2 className="description-title">Price Statistics</h2>
+        {[
+          { label: 'Price Change (24h)', value: formatPercentage(coin.market_data.price_change_percentage_24h) },
+          { label: 'Price Change (7d)', value: formatPercentage(coin.market_data.price_change_percentage_7d) },
+          { label: 'Price Change (30d)', value: formatPercentage(coin.market_data.price_change_percentage_30d) },
+          { label: 'All-Time High', value: `$${coin.market_data.ath.usd.toLocaleString()}` },
+          { label: 'All-Time Low', value: `$${coin.market_data.atl.usd.toLocaleString()}` }
+        ].map(({ label, value }) => (
+          <div key={label} className="stat-row">
+            <div className="stat-label">{label}</div>
+            <div className="stat-value">{value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 } 
