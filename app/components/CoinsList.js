@@ -25,6 +25,17 @@ const CoinsList = () => {
     getTopCoins();
   }, []);
 
+  const formatMarketCap = (marketCap) => {
+    if (marketCap >= 1e12) {
+      return `${(marketCap / 1e12).toFixed(2)}T`;
+    } else if (marketCap >= 1e9) {
+      return `${(marketCap / 1e9).toFixed(2)}B`;
+    } else if (marketCap >= 1e6) {
+      return `${(marketCap / 1e6).toFixed(2)}M`;
+    }
+    return marketCap.toLocaleString();
+  };
+
   if (loading) {
     return (
       <div className="coins-loading">
@@ -41,25 +52,36 @@ const CoinsList = () => {
   return (
     <div className="coins-list-container">
       <h2 className="coins-list-title">Top Cryptocurrencies</h2>
-      <div className="coins-list">
+      <div className="coins-grid">
         {coins.map((coin) => (
-          <Link href={`/coin/${coin.id}`} key={coin.id} className="coin-card">
-            <div className="coin-card-content">
-              <div className="coin-icon-wrapper">
+          <Link href={`/coin/${coin.id}`} key={coin.id} className="coin-item">
+            <div className="coin-info-container">
+              <div className="coin-main-info">
                 <img src={coin.image} alt={coin.name} className="coin-icon" />
+                <div className="coin-name-wrapper">
+                  <span className="coin-name">{coin.name}</span>
+                  <span className="coin-symbol">{coin.symbol.toUpperCase()}</span>
+                </div>
               </div>
-              <div className="coin-info">
-                <h3 className="coin-name">{coin.name} <span className="coin-symbol">{coin.symbol.toUpperCase()}</span></h3>
-                <p className="coin-price">${coin.current_price.toLocaleString()}</p>
-              </div>
-              <div className="coin-stats">
-                <p className={`coin-change ${coin.price_change_percentage_24h >= 0 ? 'positive' : 'negative'}`}>
-                  {coin.price_change_percentage_24h >= 0 ? '↑' : '↓'} 
-                  {Math.abs(coin.price_change_percentage_24h).toFixed(2)}%
-                </p>
-                <p className="coin-market-cap">
-                  <span className="stat-label">Market Cap:</span> ${formatMarketCap(coin.market_cap)}
-                </p>
+
+              <div className="coin-details">
+                <div className="coin-price-info">
+                  <span className="coin-price">
+                    ${new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    }).format(coin.current_price)}
+                  </span>
+                  <div className={`coin-change ${coin.price_change_percentage_24h >= 0 ? 'positive' : 'negative'}`}>
+                    {coin.price_change_percentage_24h >= 0 ? '↑' : '↓'}
+                    {Math.abs(coin.price_change_percentage_24h).toFixed(2)}%
+                  </div>
+                </div>
+
+                <div className="market-cap-info">
+                  <span className="market-cap-label">MARKET CAP</span>
+                  <span className="market-cap-value">${formatMarketCap(coin.market_cap)}</span>
+                </div>
               </div>
             </div>
           </Link>
@@ -69,14 +91,4 @@ const CoinsList = () => {
   );
 };
 
-function formatMarketCap(marketCap) {
-  if (marketCap >= 1_000_000_000) {
-    return `${(marketCap / 1_000_000_000).toFixed(1)}B`;
-  } else if (marketCap >= 1_000_000) {
-    return `${(marketCap / 1_000_000).toFixed(1)}M`;
-  } else {
-    return marketCap.toLocaleString();
-  }
-}
-
-export default CoinsList; 
+export default CoinsList;

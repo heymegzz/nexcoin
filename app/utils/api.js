@@ -17,26 +17,17 @@ export const searchCoins = async (query, maxRetries = 2) => {
   
   const executeSearch = async () => {
     try {
-      
       const encodedQuery = encodeURIComponent(query.trim());
-      console.log(`Searching for: ${encodedQuery}`);
-      
       const response = await fetch(`${BASE_URL}/search?query=${encodedQuery}&x_cg_demo_api_key=${API_KEY}`);
       
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`Search API error: ${response.status} ${errorText}`);
         throw new Error(`Search failed with status: ${response.status}`);
       }
       
-      const data = await response.json();
-      console.log(`Found ${data.coins?.length || 0} coins matching "${query}"`);
-      return data;
+      return await response.json();
     } catch (error) {
-      console.error('Error searching coins:', error);
       if (retries < maxRetries) {
         retries++;
-        console.log(`Retrying search (${retries}/${maxRetries})...`);
         return executeSearch(); 
       }
       return { coins: [] };

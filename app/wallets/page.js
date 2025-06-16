@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { FaCopy, FaRedo, FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { FaCopy, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const WalletsPage = () => {
