@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { fetchTopCoins } from '../utils/api';
+import Image from 'next/image';
+import { dummyMarketData } from '../data/dummyMarketData';
 import SparklineChart from '../components/SparklineChart';
+
 
 const dummyNews = [
   {
@@ -56,33 +58,21 @@ const Markets = () => {
   const [sortOrder, setSortOrder] = useState('desc');
   const [autoRefresh, setAutoRefresh] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
-  const [coins, setCoins] = useState([]);
-  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    const loadCoins = async () => {
-      try {
-        const data = await fetchTopCoins(100); // Fetch top 100 coins
-        setCoins(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error loading coins:', error);
-        setLoading(false);
-      }
-    };
-
-    loadCoins();
     let intervalId;
-    
     if (autoRefresh) {
-      intervalId = setInterval(loadCoins, 10000);
+      intervalId = setInterval(() => {
+       
+        setLastUpdated(new Date());
+      }, 10000);
     }
-    
     return () => clearInterval(intervalId);
   }, [autoRefresh]);
 
   // Filter coins based on search query
-  const filteredCoins = coins.filter(coin =>
+  const filteredCoins = dummyMarketData.coins.filter(coin =>
     coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     coin.symbol.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -90,14 +80,8 @@ const Markets = () => {
   // Sort coins based on selected criteria
   const sortedCoins = [...filteredCoins].sort((a, b) => {
     const multiplier = sortOrder === 'desc' ? -1 : 1;
-    const aValue = a[sortBy] || 0;
-    const bValue = b[sortBy] || 0;
-    return (aValue - bValue) * multiplier;
+    return (a[sortBy] - b[sortBy]) * multiplier;
   });
-
-  if (loading) {
-    return <div className="markets-content loading">Loading market data...</div>;
-  }
 
   return (
     <div className="markets-content">
@@ -348,4 +332,4 @@ const Markets = () => {
   );
 };
 
-export default Markets;
+export default Markets; 
