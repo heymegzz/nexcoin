@@ -1,14 +1,17 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import Logo from "./Logo";
+import "../styles/profile.css";
 
 const Navbar = () => {
   const [isClick, setIsClick] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
   const router = useRouter();
   const { user, logout } = useAuth();
+  const profileMenuRef = useRef(null);
 
   const toggleNavbar = () => {
     setIsClick(!isClick);
@@ -18,6 +21,7 @@ const Navbar = () => {
     try {
       await logout();
       router.push('/');
+      setShowProfileMenu(false);
     } catch (error) {
       console.error('Failed to logout:', error);
     }
@@ -26,6 +30,21 @@ const Navbar = () => {
   const handleSignUp = () => {
     router.push('/signup');
   };
+
+  const toggleProfileMenu = () => {
+    setShowProfileMenu(!showProfileMenu);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+        setShowProfileMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -79,12 +98,43 @@ const Navbar = () => {
           </div>
 
           <div className="navbar-auth">
-            <Link href="/login" className="navbar-login">
-              Login
-            </Link>
-            <button onClick={handleSignUp} className="navbar-signup-btn">
-              Sign Up
-            </button>
+            {user ? (
+              <div className="profile-menu" ref={profileMenuRef}>
+                <button onClick={toggleProfileMenu} className="profile-button">
+                  <span>{user.displayName || 'Profile'}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div className={`profile-dropdown ${showProfileMenu ? 'open' : ''}`}>
+                  <div className="profile-info">
+                    <div className="profile-name">{user.displayName || 'User'}</div>
+                    <div className="profile-email">{user.email}</div>
+                  </div>
+                  <Link href="/wallets" className="profile-menu-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6h18M3 12h18M3 18h18" />
+                    </svg>
+                    My Wallets
+                  </Link>
+                  <div className="profile-menu-item" onClick={handleLogout}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Sign Out
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <>
+                <Link href="/login" className="navbar-login">
+                  Login
+                </Link>
+                <button onClick={handleSignUp} className="navbar-signup-btn">
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
   
           <div className="navbar-mobile-menu-toggle">
@@ -136,14 +186,35 @@ const Navbar = () => {
         <Link href="/wallets" className="navbar-mobile-link">
           Wallets
         </Link>
-        <div className="navbar-mobile-auth">
-          <Link href="/login" className="navbar-mobile-login">
-            Login
-          </Link>
-          <button onClick={handleSignUp} className="navbar-mobile-signup-btn">
-            Sign Up
-          </button>
-        </div>
+        {user ? (
+          <div className="profile-mobile">
+            <div className="profile-info">
+              <div className="profile-name">{user.displayName || 'User'}</div>
+              <div className="profile-email">{user.email}</div>
+            </div>
+            <Link href="/wallets" className="profile-menu-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6h18M3 12h18M3 18h18" />
+              </svg>
+              My Wallets
+            </Link>
+            <div className="profile-menu-item" onClick={handleLogout}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              Sign Out
+            </div>
+          </div>
+        ) : (
+          <div className="navbar-mobile-auth">
+            <Link href="/login" className="navbar-mobile-login">
+              Login
+            </Link>
+            <button onClick={handleSignUp} className="navbar-mobile-signup-btn">
+              Sign Up
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   );
