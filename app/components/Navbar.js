@@ -1,15 +1,26 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 
 const Navbar = () => {
   const [isClick, setIsClick] = useState(false);
   const router = useRouter();
+  const { user, logout } = useAuth();
 
   const toggleNavbar = () => {
     setIsClick(!isClick);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/');
+    } catch (error) {
+      console.error('Failed to logout:', error);
+    }
   };
 
   const handleSignUp = () => {

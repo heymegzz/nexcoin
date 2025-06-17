@@ -1,16 +1,61 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+'use client';
+import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function Signup() {
- 
+  const { signup } = useAuth();
+  const router = useRouter();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const confirmPassword = formData.get('confirm-password');
+    const firstName = formData.get('first-name');
+    const lastName = formData.get('last-name');
+    const terms = formData.get('terms');
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    if (!terms) {
+      setError("Please accept the Terms of Service and Privacy Policy");
+      return;
+    }
+
+    try {
+      setError("");
+      setLoading(true);
+      await signup(email, password, firstName, lastName);
+      router.push('/markets');
+    } catch (err) {
+      console.error('Signup error:', err);
+      if (err.code === 'auth/email-already-in-use') {
+        setError("This email is already registered. Please try logging in instead.");
+      } else if (err.code === 'auth/weak-password') {
+        setError("Password should be at least 6 characters long.");
+      } else {
+        setError("Failed to create an account. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="main">
-      <Navbar />
       <div className="main-content">
         <div className="auth-container">
           <h1 className="auth-title">Create an Account</h1>
+          {error && <div className="auth-error">{error}</div>}
           
-          <form className="auth-form">
+          <form className="auth-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group half">
                 <label className="form-label" htmlFor="first-name">
@@ -20,8 +65,10 @@ export default function Signup() {
                   className="form-input"
                   type="text"
                   id="first-name"
+                  name="first-name"
                   placeholder="First name"
                   autoComplete="given-name"
+                  required
                 />
               </div>
               
@@ -33,8 +80,10 @@ export default function Signup() {
                   className="form-input"
                   type="text"
                   id="last-name"
+                  name="last-name"
                   placeholder="Last name"
                   autoComplete="family-name"
+                  required
                 />
               </div>
             </div>
@@ -47,8 +96,10 @@ export default function Signup() {
                 className="form-input"
                 type="email"
                 id="email"
+                name="email"
                 placeholder="Enter your email"
                 autoComplete="email"
+                required
               />
             </div>
             
@@ -60,8 +111,11 @@ export default function Signup() {
                 className="form-input"
                 type="password"
                 id="password"
+                name="password"
                 placeholder="Create a password"
                 autoComplete="new-password"
+                required
+                minLength="6"
               />
             </div>
             
@@ -73,8 +127,11 @@ export default function Signup() {
                 className="form-input"
                 type="password"
                 id="confirm-password"
+                name="confirm-password"
                 placeholder="Confirm your password"
                 autoComplete="new-password"
+                required
+                minLength="6"
               />
             </div>
             
@@ -85,6 +142,7 @@ export default function Signup() {
                   name="terms"
                   type="checkbox"
                   className="form-checkbox"
+                  required
                 />
                 <label htmlFor="terms" className="checkbox-label">
                   I agree to the Terms of Service and Privacy Policy
@@ -96,8 +154,9 @@ export default function Signup() {
               <button
                 type="submit"
                 className="form-button"
+                disabled={loading}
               >
-                Create Account
+                {loading ? 'Creating Account...' : 'Create Account'}
               </button>
             </div>
           </form>
