@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { dummyMarketData } from '../data/dummyMarketData';
+import { fetchTopCoins } from '../utils/api';
 import '../styles/trading.css';
 
 ChartJS.register(
@@ -26,26 +26,48 @@ ChartJS.register(
 );
 
 const Trading = () => {
-
-  const [selectedCoin, setSelectedCoin] = useState(dummyMarketData.coins[0]);
+  const [coins, setCoins] = useState([]);
+  const [selectedCoin, setSelectedCoin] = useState(null);
   const [amount, setAmount] = useState('');
   const [quantity, setQuantity] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({ type: '', details: {} });
   const [tradeHistory, setTradeHistory] = useState([]);
   const [portfolio, setPortfolio] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const marketData = await fetchTopCoins(50); // Fetch top 50 coins
+        setCoins(marketData);
+        setSelectedCoin(marketData[0]); // Set first coin as default
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching market data:', err);
+        setError('Failed to load market data. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    // Load saved trade history and portfolio
     const savedTrades = localStorage.getItem('tradeHistory');
     const savedPortfolio = localStorage.getItem('portfolio');
     if (savedTrades) setTradeHistory(JSON.parse(savedTrades));
     if (savedPortfolio) setPortfolio(JSON.parse(savedPortfolio));
   }, []);
 
-
   const generateChartData = () => {
+    if (!selectedCoin) return null;
+
+    // Generate dummy price data points based on current price
     const labels = Array.from({ length: 24 }, (_, i) => `${i}:00`);
-    const basePrice = selectedCoin.price;
+    const basePrice = selectedCoin.current_price;
     const volatility = 0.05; // 5% volatility
     let currentPrice = basePrice;
     
@@ -75,7 +97,6 @@ const Trading = () => {
       ]
     };
   };
-
 
   const chartOptions = {
     responsive: true,
@@ -149,9 +170,8 @@ const Trading = () => {
     }
   };
 
-
   const executeTrade = (type) => {
-    if (!amount || !quantity) {
+    if (!amount || !quantity || !selectedCoin) {
       alert('Please enter both amount and quantity');
       return;
     }
@@ -160,12 +180,11 @@ const Trading = () => {
       id: Date.now(),
       type,
       coin: selectedCoin.symbol.toUpperCase(),
-      price: selectedCoin.price,
+      price: selectedCoin.current_price,
       amount: parseFloat(amount),
       quantity: parseFloat(quantity),
       timestamp: new Date().toISOString(),
     };
-
 
     const updatedHistory = [trade, ...tradeHistory];
     setTradeHistory(updatedHistory);
@@ -201,10 +220,8 @@ const Trading = () => {
     setPortfolio(updatedPortfolio);
     localStorage.setItem('portfolio', JSON.stringify(updatedPortfolio));
 
- 
     setModalData({ type, details: trade });
     setShowModal(true);
-
 
     setAmount('');
     setQuantity('');
@@ -212,28 +229,46 @@ const Trading = () => {
 
   const calculateTotalValue = () => {
     return Object.entries(portfolio).reduce((total, [symbol, data]) => {
-      const coin = dummyMarketData.coins.find(c => c.symbol.toUpperCase() === symbol);
-      return total + (coin.price * data.quantity);
+      const coin = coins.find(c => c.symbol.toUpperCase() === symbol);
+      return total + (coin?.current_price * data.quantity || 0);
     }, 0);
   };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading trading data...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()} className="retry-button">
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="trading-page">
       <div className="container">
-
         <div className="chart-section">
           <Line data={generateChartData()} options={chartOptions} />
         </div>
 
-  
         <div className="trading-section">
           <div className="trading-form">
             <select 
-              value={selectedCoin.id}
-              onChange={(e) => setSelectedCoin(dummyMarketData.coins.find(c => c.id === e.target.value))}
+              value={selectedCoin?.id || ''}
+              onChange={(e) => setSelectedCoin(coins.find(c => c.id === e.target.value))}
               className="coin-select"
             >
-              {dummyMarketData.coins.map(coin => (
+              {coins.map(coin => (
                 <option key={coin.id} value={coin.id}>
                   {coin.name} ({coin.symbol.toUpperCase()})
                 </option>
@@ -285,18 +320,22 @@ const Trading = () => {
               <span>${calculateTotalValue().toLocaleString()}</span>
             </div>
             <div className="portfolio-grid">
-              {Object.entries(portfolio).map(([symbol, data]) => (
-                <div key={symbol} className="portfolio-item">
-                  <div className="coin-info">
-                    <span className="coin-symbol">{symbol}</span>
-                    <span className="coin-quantity">{data.quantity.toFixed(4)}</span>
+              {Object.entries(portfolio).map(([symbol, data]) => {
+                const coin = coins.find(c => c.symbol.toUpperCase() === symbol);
+                if (!coin) return null;
+                return (
+                  <div key={symbol} className="portfolio-item">
+                    <div className="coin-info">
+                      <span className="coin-symbol">{symbol}</span>
+                      <span className="coin-quantity">{data.quantity.toFixed(4)}</span>
+                    </div>
+                    <div className="coin-value">
+                      <span className="label">Avg. Price:</span>
+                      <span>${data.averagePrice.toFixed(2)}</span>
+                    </div>
                   </div>
-                  <div className="coin-value">
-                    <span className="label">Avg. Price:</span>
-                    <span>${data.averagePrice.toFixed(2)}</span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
@@ -351,4 +390,4 @@ const Trading = () => {
   );
 };
 
-export default Trading; 
+export default Trading;

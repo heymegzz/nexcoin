@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { dummyMarketData } from '../data/dummyMarketData';
 import SparklineChart from '../components/SparklineChart';
-
+import { fetchTopCoins } from '../utils/api';
 
 const dummyNews = [
   {
@@ -58,21 +57,39 @@ const Markets = () => {
   const [sortOrder, setSortOrder] = useState('desc');
   const [autoRefresh, setAutoRefresh] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [coins, setCoins] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  const fetchMarketData = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchTopCoins(100); // Fetch top 100 coins
+      setCoins(data);
+      setLastUpdated(new Date());
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching market data:', err);
+      setError('Failed to load market data. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMarketData();
+  }, []);
 
   useEffect(() => {
     let intervalId;
     if (autoRefresh) {
-      intervalId = setInterval(() => {
-       
-        setLastUpdated(new Date());
-      }, 10000);
+      intervalId = setInterval(fetchMarketData, 60000); // Fetch every minute when auto-refresh is on
     }
     return () => clearInterval(intervalId);
   }, [autoRefresh]);
 
   // Filter coins based on search query
-  const filteredCoins = dummyMarketData.coins.filter(coin =>
+  const filteredCoins = coins.filter(coin =>
     coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     coin.symbol.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -80,8 +97,52 @@ const Markets = () => {
   // Sort coins based on selected criteria
   const sortedCoins = [...filteredCoins].sort((a, b) => {
     const multiplier = sortOrder === 'desc' ? -1 : 1;
-    return (a[sortBy] - b[sortBy]) * multiplier;
+    let aValue = a[sortBy];
+    let bValue = b[sortBy];
+    
+    // Handle nested properties like market_cap -> market_cap
+    if (sortBy === 'market_cap') {
+      aValue = a.market_cap;
+      bValue = b.market_cap;
+    } else if (sortBy === 'volume_24h') {
+      aValue = a.total_volume;
+      bValue = b.total_volume;
+    } else if (sortBy === 'price') {
+      aValue = a.current_price;
+      bValue = b.current_price;
+    } else if (sortBy === 'price_change_24h') {
+      aValue = a.price_change_percentage_24h;
+      bValue = b.price_change_percentage_24h;
+    }
+
+    return (aValue - bValue) * multiplier;
   });
+
+  // Calculate total market stats
+  const totalMarketCap = coins.reduce((sum, coin) => sum + (coin.market_cap || 0), 0);
+  const total24hVolume = coins.reduce((sum, coin) => sum + (coin.total_volume || 0), 0);
+  const btcDominance = coins.length > 0 ? ((coins[0].market_cap || 0) / totalMarketCap * 100) : 0;
+  const ethDominance = coins.length > 1 ? ((coins[1].market_cap || 0) / totalMarketCap * 100) : 0;
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading market data...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>{error}</p>
+        <button onClick={fetchMarketData} className="retry-button">
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="markets-content">
@@ -92,26 +153,30 @@ const Markets = () => {
             <div className="stat-item">
               <span className="stat-label">Total Market Cap</span>
               <span className="stat-value">
-                {currency === 'USD' ? '$2.45T' : '₹203.4T'}
+                {currency === 'USD' 
+                  ? `$${(totalMarketCap / 1e12).toFixed(2)}T` 
+                  : `₹${((totalMarketCap * 83) / 1e12).toFixed(2)}T`}
               </span>
             </div>
             <div className="stat-item">
               <span className="stat-label">24h Volume</span>
               <span className="stat-value">
-                {currency === 'USD' ? '$84.5B' : '₹7.02T'}
+                {currency === 'USD' 
+                  ? `$${(total24hVolume / 1e9).toFixed(2)}B`
+                  : `₹${((total24hVolume * 83) / 1e9).toFixed(2)}B`}
               </span>
             </div>
             <div className="stat-item">
               <span className="stat-label">BTC Dominance</span>
-              <span className="stat-value">48.2%</span>
+              <span className="stat-value">{btcDominance.toFixed(1)}%</span>
             </div>
             <div className="stat-item">
               <span className="stat-label">ETH Dominance</span>
-              <span className="stat-value">18.7%</span>
+              <span className="stat-value">{ethDominance.toFixed(1)}%</span>
             </div>
             <div className="stat-item">
               <span className="stat-label">Total Coins</span>
-              <span className="stat-value">9,482</span>
+              <span className="stat-value">{coins.length}</span>
             </div>
           </div>
         </div>
@@ -178,7 +243,7 @@ const Markets = () => {
               <h3>Top Gainers (24h)</h3>
               <div className="category-coins">
                 {sortedCoins
-                  .filter(coin => coin.price_change_24h > 0)
+                  .filter(coin => (coin.price_change_percentage_24h || 0) > 0)
                   .slice(0, 3)
                   .map(coin => (
                     <div key={coin.id} className="mini-coin-card">
@@ -190,7 +255,7 @@ const Markets = () => {
                       />
                       <span className="coin-symbol">{coin.symbol.toUpperCase()}</span>
                       <span className="price-change positive">
-                        +{coin.price_change_24h.toFixed(2)}%
+                        +{coin.price_change_percentage_24h.toFixed(2)}%
                       </span>
                     </div>
                   ))}
@@ -200,7 +265,7 @@ const Markets = () => {
               <h3>Top Losers (24h)</h3>
               <div className="category-coins">
                 {sortedCoins
-                  .filter(coin => coin.price_change_24h < 0)
+                  .filter(coin => (coin.price_change_percentage_24h || 0) < 0)
                   .slice(0, 3)
                   .map(coin => (
                     <div key={coin.id} className="mini-coin-card">
@@ -212,7 +277,7 @@ const Markets = () => {
                       />
                       <span className="coin-symbol">{coin.symbol.toUpperCase()}</span>
                       <span className="price-change negative">
-                        {coin.price_change_24h.toFixed(2)}%
+                        {coin.price_change_percentage_24h.toFixed(2)}%
                       </span>
                     </div>
                   ))}
@@ -275,28 +340,28 @@ const Markets = () => {
                     </td>
                     <td className="mobile-visible price-column">
                       {currency === 'USD' 
-                        ? `$${coin.price.toLocaleString()}`
-                        : `₹${(coin.price * 83).toLocaleString()}`}
+                        ? `$${(coin.current_price || 0).toLocaleString()}`
+                        : `₹${((coin.current_price || 0) * 83).toLocaleString()}`}
                     </td>
                     <td className="mobile-visible">
-                      <span className={`price-change ${coin.price_change_24h >= 0 ? 'positive' : 'negative'}`}>
-                        {coin.price_change_24h >= 0 ? '+' : ''}{coin.price_change_24h.toFixed(2)}%
+                      <span className={`price-change ${(coin.price_change_percentage_24h || 0) >= 0 ? 'positive' : 'negative'}`}>
+                        {(coin.price_change_percentage_24h || 0) >= 0 ? '+' : ''}{(coin.price_change_percentage_24h || 0).toFixed(2)}%
                       </span>
                     </td>
                     <td className="tablet-visible">
                       {currency === 'USD'
-                        ? `$${coin.volume_24h.toLocaleString()}`
-                        : `₹${(coin.volume_24h * 83).toLocaleString()}`}
+                        ? `$${(coin.total_volume || 0).toLocaleString()}`
+                        : `₹${((coin.total_volume || 0) * 83).toLocaleString()}`}
                     </td>
                     <td className="tablet-visible">
                       {currency === 'USD'
-                        ? `$${coin.market_cap.toLocaleString()}`
-                        : `₹${(coin.market_cap * 83).toLocaleString()}`}
+                        ? `$${(coin.market_cap || 0).toLocaleString()}`
+                        : `₹${((coin.market_cap || 0) * 83).toLocaleString()}`}
                     </td>
                     <td className="desktop-visible">
                       <SparklineChart
-                        data={coin.sparkline_data}
-                        positive={coin.price_change_7d >= 0}
+                        data={coin.sparkline_in_7d?.price || []}
+                        positive={(coin.price_change_percentage_7d || 0) >= 0}
                       />
                     </td>
                     <td className="mobile-visible">
@@ -332,4 +397,4 @@ const Markets = () => {
   );
 };
 
-export default Markets; 
+export default Markets;
