@@ -78,7 +78,7 @@ export default function Signup() {
               />
             </div>
             
-            <div className="form-group">
+            <div className="form-group-row">
               <div className="checkbox-container">
                 <input
                   id="terms"
@@ -87,14 +87,7 @@ export default function Signup() {
                   className="form-checkbox"
                 />
                 <label htmlFor="terms" className="checkbox-label">
-                  I agree to the{" "}
-                  <a href="#" className="form-link">
-                    Terms of Service
-                  </a>{" "}
-                  and{" "}
-                  <a href="#" className="form-link">
-                    Privacy Policy
-                  </a>
+                  I agree to the Terms of Service and Privacy Policy
                 </label>
               </div>
             </div>
