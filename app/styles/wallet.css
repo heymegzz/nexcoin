@@ -3,6 +3,7 @@
   min-height: 100vh;
   background-color: #0A0A0A;
   color: white;
+  padding-bottom: 2rem;
 }
 
 .wallet-content {
@@ -25,28 +26,43 @@
 }
 
 .wallet-card {
-  background-color: #1a1a1a;
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(26, 26, 26, 0.8);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wallet-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .balance-card {
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.balance-card:hover {
+  transform: translateY(-2px);
 }
 
 .balance-card-usd {
-  background: linear-gradient(to right, #2563eb, #1d4ed8);
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
 }
 
 .balance-card-btc {
-  background: linear-gradient(to right, #ea580c, #c2410c);
+  background: linear-gradient(135deg, #f97316, #c2410c);
 }
 
 .balance-card-eth {
-  background: linear-gradient(to right, #7c3aed, #6d28d9);
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
 }
 
 .wallet-input {
@@ -92,12 +108,39 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
+  margin-top: 1rem;
 }
 
 .transactions-table th,
 .transactions-table td {
   padding: 1rem 1.5rem;
   text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.transactions-table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.transactions-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 768px) {
+  .transactions-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .transactions-table th,
+  .transactions-table td {
+    white-space: nowrap;
+    padding: 0.875rem 1rem;
+  }
 }
 
 .transactions-table th {
