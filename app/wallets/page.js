@@ -9,7 +9,7 @@ function TransactionModal({ isOpen, onClose, type }) {
 
   return (
     <div className="modal-overlay">
-      <div className="wallet-card max-w-md w-full mx-4">
+      <div className="wallet-card max-w-md">
         <h2 className="modal-title">{type === 'deposit' ? 'Deposit' : 'Withdraw'}</h2>
         <div className="modal-content">
           <div className="form-group">
@@ -38,12 +38,7 @@ function TransactionModal({ isOpen, onClose, type }) {
             </div>
           )}
           <div className="modal-actions">
-            <button 
-              onClick={onClose} 
-              className="btn btn-secondary"
-            >
-              Cancel
-            </button>
+            <button onClick={onClose} className="btn btn-secondary">Cancel</button>
             <button className="btn btn-primary">
               {type === 'deposit' ? 'Generate Address' : 'Withdraw'}
             </button>
@@ -92,85 +87,83 @@ function WalletsPage() {
   return (
     <div className="wallet-container">
       <div className="wallet-content">
-        <h1 className="text-3xl font-bold mb-8">Wallet Overview</h1>
+        <h1 className="title">Wallet Overview</h1>
 
         <div className="wallet-grid">
           <motion.div 
             whileHover={{ scale: 1.02 }}
             className="balance-card balance-card-usd"
           >
-            <h3 className="text-lg font-medium text-gray-200 mb-2">USD Balance</h3>
-            <p className="text-3xl font-bold">${balance.usd.toLocaleString()}</p>
+            <h3 className="balance-title">USD Balance</h3>
+            <p className="balance-amount">${balance.usd.toLocaleString()}</p>
           </motion.div>
           <motion.div 
             whileHover={{ scale: 1.02 }}
             className="balance-card balance-card-btc"
           >
-            <h3 className="text-lg font-medium text-gray-200 mb-2">BTC Balance</h3>
-            <p className="text-3xl font-bold">{balance.btc} BTC</p>
+            <h3 className="balance-title">BTC Balance</h3>
+            <p className="balance-amount">{balance.btc} BTC</p>
           </motion.div>
           <motion.div 
             whileHover={{ scale: 1.02 }}
             className="balance-card balance-card-eth"
           >
-            <h3 className="text-lg font-medium text-gray-200 mb-2">ETH Balance</h3>
-            <p className="text-3xl font-bold">{balance.eth} ETH</p>
+            <h3 className="balance-title">ETH Balance</h3>
+            <p className="balance-amount">{balance.eth} ETH</p>
           </motion.div>
         </div>
 
-        <div className="wallet-card mb-8">
-          <div className="flex flex-col space-y-6">
-            <div className="w-full">
-              <h3 className="text-xl font-bold mb-4">Wallet Address</h3>
-              <div className="flex items-center space-x-3">
-                <input 
-                  type="text" 
-                  value={walletAddress} 
-                  readOnly 
-                  className="wallet-input text-sm font-mono"
-                />
-                <button 
-                  onClick={copyToClipboard}
-                  className="p-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-                  title="Copy address"
-                >
-                  <FaCopy className="w-5 h-5" />
-                </button>
-                <button 
-                  onClick={regenerateAddress}
-                  className="p-3 bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
-                  title="Generate new address"
-                >
-                  <FaRedo className="w-5 h-5" />
-                </button>
-              </div>
-              {copySuccess && (
-                <p className="text-green-500 text-sm mt-2">Address copied to clipboard!</p>
-              )}
+        <div className="wallet-card wallet-address-section">
+          <div>
+            <h3 className="subtitle">Wallet Address</h3>
+            <div className="wallet-address-container">
+              <input 
+                type="text" 
+                value={walletAddress} 
+                readOnly 
+                className="wallet-input wallet-address-input"
+              />
+              <button 
+                onClick={copyToClipboard}
+                className="action-button copy-button"
+                title="Copy address"
+              >
+                <FaCopy />
+              </button>
+              <button 
+                onClick={regenerateAddress}
+                className="action-button regenerate-button"
+                title="Generate new address"
+              >
+                <FaRedo />
+              </button>
             </div>
+            {copySuccess && (
+              <p className="success-message">Address copied to clipboard!</p>
+            )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="action-buttons-container">
               <button 
                 onClick={() => setShowDepositModal(true)}
-                className="flex items-center justify-center space-x-2 px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors w-full"
+                className="action-button-primary deposit-button"
               >
-                <FaArrowDown className="w-4 h-4" />
+                <FaArrowDown />
                 <span>Deposit</span>
               </button>
               <button 
                 onClick={() => setShowWithdrawModal(true)}
-                className="flex items-center justify-center space-x-2 px-6 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition-colors w-full"
+                className="action-button-primary withdraw-button"
               >
-                <FaArrowUp className="w-4 h-4" />
+                <FaArrowUp />
                 <span>Withdraw</span>
               </button>
             </div>
           </div>
         </div>
 
-        <div className="wallet-card overflow-hidden">
-          <h3 className="text-xl font-bold mb-6">Recent Transactions</h3>
-          <div className="overflow-x-auto">
+        <div className="wallet-card">
+          <h3 className="subtitle">Recent Transactions</h3>
+          <div className="table-container">
             <table className="transactions-table">
               <thead>
                 <tr>
