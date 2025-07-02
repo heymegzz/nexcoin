@@ -1,4 +1,9 @@
+"use client";
+
+import { useAuth } from '../context/AuthContext';
+
 const PremiumSection = () => {
+  const { user } = useAuth();
   return (
     <section className="premium-section">
       <div className="premium-background">
@@ -53,10 +58,14 @@ const PremiumSection = () => {
           </div>
 
           <div className="premium-cta">
-            <a href="/signup" className="premium-button">
+            <button 
+              className="premium-button disabled" 
+              disabled 
+              title="Coming Soon"
+            >
               Start Free Trial
               <span className="button-shine"></span>
-            </a>
+            </button>
             <p className="premium-note">✨ No credit card required • Cancel anytime</p>
           </div>
 
@@ -91,4 +100,4 @@ const PremiumSection = () => {
   );
 };
 
-export default PremiumSection; 
+export default PremiumSection;

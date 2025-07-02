@@ -181,6 +181,19 @@
   overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 8px 20px var(--color-gold-transparent);
+  cursor: pointer;
+}
+
+.premium-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: linear-gradient(to right, #808080, #A9A9A9);
+  transform: none;
+}
+
+.premium-button.disabled:hover {
+  transform: none;
+  opacity: 0.6;
 }
 
 .premium-button:hover {
@@ -463,4 +476,4 @@
   .premium-feature {
     padding: 24px;
   }
-} 
+}
