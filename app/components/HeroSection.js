@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { searchCoins } from "../utils/api";
 import CoinsList from "./CoinsList";
+import { useAuth } from "../context/AuthContext";
 
 const HeroSection = () => {
   const [query, setQuery] = useState("");
@@ -11,6 +12,7 @@ const HeroSection = () => {
   const [showResults, setShowResults] = useState(false);
   const searchRef = useRef(null);
   const router = useRouter();
+  const { user } = useAuth();
 
   const handleSearch = async (e) => {
     const value = e.target.value;
@@ -82,9 +84,11 @@ const HeroSection = () => {
           <p className="hero-subheadline">
             Connect your entire portfolio to track, buy, swap, and stake your assets.
           </p>
-          <div className="hero-buttons">
-            <a href="/signup" className="hero-btn hero-btn-primary">Get Started</a>
-          </div>
+          {!user && (
+            <div className="hero-buttons">
+              <a href="/signup" className="hero-btn hero-btn-primary">Get Started</a>
+            </div>
+          )}
         </div>
         
         <div className="hero-search" ref={searchRef}>
