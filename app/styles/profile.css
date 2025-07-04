@@ -553,12 +553,12 @@
 
 .holding-item .holding-name,
 .transaction-item .tx-primary {
-  font-size: var(--font-size-md);
+  font-size: 14px;
 }
 
 .holding-item .coin-amount,
 .transaction-item .amount {
-  font-size: var(--font-size-md);
+  font-size: 14px;
   color: var(--text-secondary);
   display: block;
   margin-top: 0.25rem;
@@ -566,7 +566,7 @@
 
 .holding-item .value,
 .transaction-item .value {
-  font-size: var(--font-size-lg);
+  font-size: 16px;
   color: var(--color-yellow-400);
   font-weight: bold;
   display: block;
