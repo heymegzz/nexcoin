@@ -21,82 +21,143 @@
   color: var(--color-black);
 }
 
-.profile-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: 8px;
-  min-width: 200px;
-  background-color: var(--color-gray-900);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  z-index: 50;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.2s ease-in-out;
+.profile-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.profile-dropdown.open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+.profile-header {
+  margin-bottom: 2rem;
 }
 
-.profile-info {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--color-border);
+.profile-header h1 {
+  color: var(--color-yellow-400);
+  margin-bottom: 1.5rem;
 }
 
-.profile-name {
-  font-weight: 500;
-  color: var(--color-white);
-  margin-bottom: 4px;
+.profile-tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 2px solid var(--color-gray-800);
+  padding-bottom: 1rem;
 }
 
-.profile-email {
-  font-size: 0.875rem;
+.tab {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
   color: var(--color-gray-400);
+  cursor: pointer;
+  transition: var(--transition-normal);
 }
 
-.profile-menu-item {
+.tab.active {
+  color: var(--color-yellow-400);
+  border-bottom: 2px solid var(--color-yellow-400);
+}
+
+.portfolio-section,
+.transactions-section,
+.favorites-section {
+  background: var(--color-gray-900);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+}
+
+.portfolio-summary {
+  margin-bottom: 2rem;
+}
+
+.portfolio-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.stat {
+  background: var(--color-gray-800);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+}
+
+.stat .label {
+  color: var(--color-gray-400);
+  font-size: 0.875rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.stat .value {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-white);
+}
+
+.value.positive {
+  color: var(--color-green-400);
+}
+
+.value.negative {
+  color: var(--color-red-400);
+}
+
+.holdings-list,
+.transactions-list,
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.holding-item,
+.transaction-item,
+.favorite-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  color: var(--color-white);
-  text-decoration: none;
-  transition: var(--transition-normal);
-  cursor: pointer;
+  padding: 1rem;
+  background: var(--color-gray-800);
+  border-radius: var(--border-radius-md);
+  gap: 1rem;
 }
 
-.profile-menu-item:hover {
-  background-color: var(--color-gray-800);
-  color: var(--color-yellow-400);
+.transaction-item .tx-type {
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75rem;
+  font-weight: bold;
 }
 
-.profile-menu-item svg {
-  width: 16px;
-  height: 16px;
+.tx-type.buy {
+  background: var(--color-green-400);
+  color: var(--color-black);
+}
+
+.tx-type.sell {
+  background: var(--color-red-400);
+  color: var(--color-black);
+}
+
+.tx-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-grow: 1;
 }
 
 @media (max-width: 768px) {
-  .profile-menu {
-    display: none;
+  .profile-page {
+    padding: 1rem;
   }
-  
-  .profile-mobile {
-    padding: 16px;
-    border-top: 1px solid var(--color-border);
+
+  .portfolio-stats {
+    grid-template-columns: 1fr;
   }
-  
-  .profile-mobile .profile-info {
-    border-bottom: none;
-    padding: 0 0 12px 0;
-  }
-  
-  .profile-mobile .profile-menu-item {
-    padding: 12px 0;
+
+  .tx-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }
