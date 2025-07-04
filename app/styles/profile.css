@@ -550,3 +550,104 @@
     padding: 1.5rem;
   }
 }
+
+.holding-item .holding-name,
+.transaction-item .tx-primary {
+  font-size: var(--font-size-md);
+}
+
+.holding-item .coin-amount,
+.transaction-item .amount {
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.holding-item .value,
+.transaction-item .value {
+  font-size: var(--font-size-lg);
+  color: var(--color-yellow-400);
+  font-weight: bold;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.holding-item .avg-price {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.coin-list {
+  background: var(--glass-background);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  max-height: 70vh;
+  overflow-y: auto;
+  border: 1px solid var(--color-yellow-border);
+  backdrop-filter: var(--glass-blur);
+}
+
+.coin-list h3 {
+  font-size: var(--font-size-lg);
+  color: var(--color-yellow-400);
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--glass-background);
+  border: 1px solid var(--color-yellow-border);
+  border-radius: var(--border-radius-md);
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+}
+
+.coin-list-item {
+  padding: 0.75rem 1rem;
+  background: var(--glass-background);
+  border: 1px solid var(--color-yellow-border);
+  border-radius: var(--border-radius-md);
+}
+
+.coin-symbol {
+  font-size: var(--font-size-md);
+}
+
+.coin-name {
+  font-size: var(--font-size-sm);
+}
+
+.add-coin-btn {
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-sm);
+}
+
+.close-btn {
+  font-size: var(--font-size-md);
+  padding: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.coin-list-item:hover {
+  background: var(--color-gold-transparent);
+}
+
+.coin-thumb {
+  width: 2rem;
+  height: 2rem;
+}
+
+.searching-state,
+.no-results,
+.search-prompt {
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 1rem;
+}
