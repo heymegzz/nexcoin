@@ -40,21 +40,21 @@ const Logo = () => {
             <circle 
               cx="20" 
               cy={isHovered || animate ? "80" : "50"} 
-              r="3" 
+              r="2" 
               fill="#EAB308" 
               className="logo-circle"
             />
             <circle 
               cx="50" 
               cy={isHovered || animate ? "40" : "50"} 
-              r="2" 
+              r="1.5" 
               fill="#EAB308" 
               className={`logo-circle delayed ${isHovered || animate ? 'visible delay-300' : ''}`}
             />
             <circle 
               cx="80" 
               cy={isHovered || animate ? "20" : "40"} 
-              r="3" 
+              r="2" 
               fill="#EAB308" 
               className={`logo-circle delayed ${isHovered || animate ? 'visible delay-600' : ''}`}
             />

@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import "../styles/profile.css";
+import "../styles/profile-menu.css";
 
 const Navbar = () => {
   const [isClick, setIsClick] = useState(false);
