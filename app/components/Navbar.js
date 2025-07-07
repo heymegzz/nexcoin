@@ -92,8 +92,8 @@ const Navbar = () => {
               <Link href="/trading" className="navbar-link">
                 Trading
               </Link>
-              <Link href="/wallets" className="navbar-link">
-                Wallets
+              <Link href="/blog" className="navbar-link">
+                Blog
               </Link>
             </div>
           </div>
@@ -184,8 +184,8 @@ const Navbar = () => {
         <Link href="/trading" className="navbar-mobile-link">
           Trading
         </Link>
-        <Link href="/wallets" className="navbar-mobile-link">
-          Wallets
+        <Link href="/blog" className="navbar-mobile-link">
+          Blog
         </Link>
         {user ? (
           <div className="profile-mobile">

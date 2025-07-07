@@ -35,6 +35,6 @@ NexCoin is a modern cryptocurrency tracking and trading platform built with Next
   ├── coin/            # Cryptocurrency detail pages
   ├── markets/         # Market overview and listings
   ├── trading/         # Trading interface
-  ├── wallets/         # Wallet management
+  ├── blog/           # Blog posts and articles
   └── profile/         # User profile and settings
 ```
