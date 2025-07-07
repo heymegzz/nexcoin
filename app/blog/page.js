@@ -8,7 +8,7 @@ const featuredPost = {
   excerpt: 'Exploring how cryptocurrencies are reshaping the global financial landscape and what it means for the future of money.',
   category: 'Featured',
   readTime: '10 min read',
-  date: 'March 22, 2024'
+  date: 'August 18, 2024'
 };
 
 const blogPosts = [
@@ -16,7 +16,7 @@ const blogPosts = [
     id: 1,
     title: 'The Evolution of Cryptocurrency Trading',
     excerpt: 'Explore how cryptocurrency trading has evolved from simple exchanges to sophisticated platforms with advanced trading tools and strategies.',
-    date: 'March 21, 2024',
+    date: 'July 1, 2025',
     category: 'Market Analysis',
     readTime: '5 min read'
   },
@@ -24,7 +24,7 @@ const blogPosts = [
     id: 2,
     title: 'DeFi Protocols Reshaping Finance',
     excerpt: 'Discover how decentralized finance protocols are revolutionizing lending, borrowing, and yield farming in the crypto space.',
-    date: 'March 20, 2024',
+    date: 'December 9, 2024',
     category: 'DeFi',
     readTime: '7 min read'
   },
@@ -32,7 +32,7 @@ const blogPosts = [
     id: 3,
     title: 'Smart Contracts: The Foundation of Web3',
     excerpt: 'Understanding how smart contracts are powering the next generation of decentralized applications and autonomous organizations.',
-    date: 'March 19, 2024',
+    date: 'September 24, 2024',
     category: 'Technology',
     readTime: '6 min read'
   },
@@ -40,7 +40,7 @@ const blogPosts = [
     id: 4,
     title: 'NFTs Beyond Digital Art',
     excerpt: 'Exploring the expanding use cases of NFTs in gaming, real estate, identity verification, and more.',
-    date: 'March 18, 2024',
+    date: 'May 25, 2024',
     category: 'Innovation',
     readTime: '4 min read'
   },
@@ -56,7 +56,7 @@ const blogPosts = [
     id: 6,
     title: 'The Impact of Crypto Regulation',
     excerpt: 'Analysis of how evolving cryptocurrency regulations are shaping the future of digital asset markets worldwide.',
-    date: 'March 16, 2024',
+    date: 'November 20, 2024',
     category: 'Regulation',
     readTime: '6 min read'
   }
