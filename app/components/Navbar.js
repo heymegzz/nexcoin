@@ -49,7 +49,7 @@ const Navbar = () => {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/markets', label: 'Markets' },
+    { href: '/markets', label: 'Market' },
     { href: '/trading', label: 'Trading' },
     { href: '/learn', label: 'Learn' },
   ];
@@ -87,7 +87,7 @@ const Navbar = () => {
                 Home
               </Link>
               <Link href="/markets" className="navbar-link">
-                Markets
+                Market
               </Link>
               <Link href="/trading" className="navbar-link">
                 Trading
@@ -179,7 +179,7 @@ const Navbar = () => {
           Home
         </Link>
         <Link href="/markets" className="navbar-mobile-link">
-          Markets
+          Market
         </Link>
         <Link href="/trading" className="navbar-mobile-link">
           Trading

@@ -50,7 +50,7 @@ const dummyNews = [
   }
 ];
 
-const Markets = () => {
+const Market = () => {
   const [currency, setCurrency] = useState('USD');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('market_cap');
@@ -145,7 +145,7 @@ const Markets = () => {
   }
 
   return (
-    <div className="markets-content">
+    <div className="market-content">
    
       <div className="market-stats-banner">
         <div className="container">
@@ -183,7 +183,7 @@ const Markets = () => {
       </div>
 
      
-      <div className="markets-controls">
+      <div className="market-controls">
         <div className="container">
           <div className="controls-wrapper">
             <div className="search-wrapper">
@@ -304,10 +304,10 @@ const Markets = () => {
         </div>
       </div>
 
-      <div className="markets-table-container">
+      <div className="market-table-container">
         <div className="container">
           <div className="table-wrapper">
-            <table className="markets-table">
+            <table className="market-table">
               <thead>
                 <tr>
                   <th className="mobile-visible">#</th>
@@ -397,4 +397,4 @@ const Markets = () => {
   );
 };
 
-export default Markets;
+export default Market;

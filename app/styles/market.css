@@ -1,4 +1,4 @@
-.markets-content {
+.market-content {
   min-height: 100vh;
   background: var(--color-black);
   padding-bottom: 4rem;
@@ -37,7 +37,7 @@
 }
 
 
-.markets-controls {
+.market-controls {
   margin-bottom: 2rem;
 }
 
@@ -193,7 +193,7 @@
   display: table-cell;
 }
 
-.markets-table-container {
+.market-table-container {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   margin: 0 -1rem;
@@ -204,7 +204,7 @@
   min-width: 100%;
 }
 
-.markets-table {
+.market-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
@@ -633,4 +633,4 @@
     min-width: 60px;
     font-size: 0.75rem;
   }
-} 
+}

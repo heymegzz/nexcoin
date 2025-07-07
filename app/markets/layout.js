@@ -2,10 +2,10 @@
 
 import Navbar from '../components/Navbar';
 
-export default function MarketsLayout({ children }) {
+export default function MarketLayout({ children }) {
   return (
     <main className="main">
       {children}
     </main>
   );
-} 
+}
