@@ -41,9 +41,9 @@ const Trading = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const marketData = await fetchTopCoins(50); // Fetch top 50 coins
+        const marketData = await fetchTopCoins(50); 
         setCoins(marketData);
-        setSelectedCoin(marketData[0]); // Set first coin as default
+        setSelectedCoin(marketData[0]); 
         setError(null);
       } catch (err) {
         console.error('Error fetching market data:', err);
@@ -55,7 +55,7 @@ const Trading = () => {
 
     fetchData();
 
-    // Load saved trade history and portfolio
+
     const savedTrades = localStorage.getItem('tradeHistory');
     const savedPortfolio = localStorage.getItem('portfolio');
     if (savedTrades) setTradeHistory(JSON.parse(savedTrades));
@@ -65,7 +65,6 @@ const Trading = () => {
   const generateChartData = () => {
     if (!selectedCoin) return null;
 
-    // Generate dummy price data points based on current price
     const labels = Array.from({ length: 24 }, (_, i) => `${i}:00`);
     const basePrice = selectedCoin.current_price;
     const volatility = 0.05; // 5% volatility

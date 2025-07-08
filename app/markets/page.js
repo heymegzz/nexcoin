@@ -64,7 +64,7 @@ const Market = () => {
   const fetchMarketData = async () => {
     try {
       setLoading(true);
-      const data = await fetchTopCoins(100); // Fetch top 100 coins
+      const data = await fetchTopCoins(100); 
       setCoins(data);
       setLastUpdated(new Date());
       setError(null);
@@ -83,24 +83,24 @@ const Market = () => {
   useEffect(() => {
     let intervalId;
     if (autoRefresh) {
-      intervalId = setInterval(fetchMarketData, 60000); // Fetch every minute when auto-refresh is on
+      intervalId = setInterval(fetchMarketData, 60000); 
     }
     return () => clearInterval(intervalId);
   }, [autoRefresh]);
 
-  // Filter coins based on search query
+
   const filteredCoins = coins.filter(coin =>
     coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     coin.symbol.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Sort coins based on selected criteria
+
   const sortedCoins = [...filteredCoins].sort((a, b) => {
     const multiplier = sortOrder === 'desc' ? -1 : 1;
     let aValue = a[sortBy];
     let bValue = b[sortBy];
     
-    // Handle nested properties like market_cap -> market_cap
+  
     if (sortBy === 'market_cap') {
       aValue = a.market_cap;
       bValue = b.market_cap;
@@ -118,7 +118,7 @@ const Market = () => {
     return (aValue - bValue) * multiplier;
   });
 
-  // Calculate total market stats
+
   const totalMarketCap = coins.reduce((sum, coin) => sum + (coin.market_cap || 0), 0);
   const total24hVolume = coins.reduce((sum, coin) => sum + (coin.total_volume || 0), 0);
   const btcDominance = coins.length > 0 ? ((coins[0].market_cap || 0) / totalMarketCap * 100) : 0;

@@ -1,4 +1,4 @@
-/* Coin Detail Page Styles */
+
 .coin-detail-container {
   max-width: 1200px;
   width: 100%;
@@ -9,7 +9,7 @@
   color: var(--text-primary);
 }
 
-/* Back Button */
+
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -28,7 +28,7 @@
   color: var(--primary);
 }
 
-/* Coin Header */
+
 .coin-header {
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@
   text-transform: uppercase;
 }
 
-/* Price Section */
+
 .coin-price-container {
   background: var(--card-background);
   border-radius: 1rem;
@@ -97,7 +97,7 @@
   background-color: var(--error-bg);
 }
 
-/* Stats Grid */
+
 .coin-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -129,7 +129,7 @@
   color: var(--text-primary);
 }
 
-/* Description Section */
+
 .coin-description {
   background: var(--card-background);
   border-radius: 1rem;
@@ -160,7 +160,7 @@
   text-decoration: underline;
 }
 
-/* Stats Table */
+
 .stat-table {
   background: var(--card-background);
   border-radius: 1rem;
@@ -189,7 +189,7 @@
   font-weight: 500;
 }
 
-/* Loading State */
+
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -215,7 +215,7 @@
   }
 }
 
-/* Error State */
+
 .error-container {
   display: flex;
   flex-direction: column;
@@ -239,7 +239,8 @@
   margin-bottom: 2rem;
 }
 
-/* Responsive Styles */
+
+
 @media (max-width: 768px) {
   .coin-stats {
     grid-template-columns: 1fr;

@@ -1,8 +1,7 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCqjVuZjuNtj-HnxulhvPb8C2Uz7M5WhOs",
   authDomain: "nexcoin-c935d.firebaseapp.com",
@@ -12,6 +11,6 @@ const firebaseConfig = {
   appId: "1:806536544827:web:1476cd9ed607c1dc0d121e",
 };
 
-// Initialize Firebase
+
 let app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 export const auth = getAuth(app);

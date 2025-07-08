@@ -1,4 +1,4 @@
-/* Hero Section Base Styles */
+
 .hero-section {
   width: 100%;
   background-color: #000;
@@ -14,7 +14,7 @@
   justify-content: center;
 }
 
-/* Hero Background Elements */
+
 .hero-background {
   position: absolute;
   top: 0;
@@ -55,7 +55,7 @@
   background: rgba(59, 130, 246, 0.06);
 }
 
-/* Hero Content */
+
 .hero-content {
   max-width: 1200px;
   width: 100%;
@@ -71,7 +71,7 @@
   z-index: 2;
 }
 
-/* Hero Text */
+
 .hero-text {
   max-width: 800px;
   display: flex;
@@ -99,7 +99,7 @@
   margin: 0;
 }
 
-/* Hero Buttons */
+
 .hero-buttons {
   display: flex;
   gap: 1rem;
@@ -124,7 +124,7 @@
   transform: translateY(-1px);
 }
 
-/* Search Section */
+
 .hero-search {
   width: 100%;
   max-width: 600px;
@@ -162,7 +162,6 @@
   pointer-events: none;
 }
 
-/* Search Results Dropdown */
 .search-results {
   position: absolute;
   top: calc(100% + 0.5rem);
@@ -212,14 +211,15 @@
   color: var(--text-secondary);
 }
 
-/* Loading State */
+
 .search-loading {
   padding: 1rem;
   text-align: center;
   color: var(--text-secondary);
 }
 
-/* Responsive Adjustments */
+
+
 @media (max-width: 768px) {
   .hero-content {
     padding: 0 1rem;

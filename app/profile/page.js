@@ -103,7 +103,7 @@ export default function ProfilePage() {
   return (
     <div className="profile-page">
       <div className="profile-content">
-        {/* User Info Section */}
+    
         <section className="user-info-section">
           <div className="profile-avatar">
             {user.displayName ? user.displayName[0].toUpperCase() : user.email[0].toUpperCase()}
@@ -115,7 +115,7 @@ export default function ProfilePage() {
           </div>
         </section>
 
-        {/* Portfolio Summary Section */}
+       
         <section className="portfolio-summary-section">
           <h2>Portfolio Summary</h2>
           <div className="portfolio-stats">
@@ -134,7 +134,7 @@ export default function ProfilePage() {
           </div>
         </section>
 
-        {/* Holdings Section */}
+  
         <section className="holdings-section">
           <h2>Your Holdings</h2>
           <div className="holdings-list">
@@ -163,7 +163,7 @@ export default function ProfilePage() {
           </div>
         </section>
 
-        {/* Recent Transactions Section */}
+       
         <section className="transactions-section">
           <h2>Recent Transactions</h2>
           <div className="transactions-list">
@@ -197,7 +197,7 @@ export default function ProfilePage() {
           </div>
         </section>
 
-        {/* Favorites Section */}
+     
         <section className="favorites-section">
           <div className="section-header">
             <h2>Favorite Coins</h2>
