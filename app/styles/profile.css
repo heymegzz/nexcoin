@@ -2,6 +2,7 @@
   min-height: 100vh;
   padding: 2rem;
   background: var(--gradient-dark);
+  margin-top: 4.5rem; /* Add margin to account for fixed navbar */
 }
 
 .profile-content {
