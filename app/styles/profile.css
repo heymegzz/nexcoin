@@ -364,6 +364,8 @@
   border-radius: var(--border-radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
+  width: 100%;
+  min-width: 0;
 }
 
 .coin-list-item:hover {
@@ -375,6 +377,8 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
+  min-width: 0;
+  flex: 1;
 }
 
 .coin-thumb {
@@ -382,23 +386,32 @@
   height: 2.5rem;
   border-radius: 50%;
   border: 1px solid var(--color-yellow-border);
+  flex-shrink: 0;
 }
 
 .coin-details {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
 }
 
 .coin-symbol {
   font-weight: bold;
   color: var(--color-yellow-400);
   font-size: var(--font-size-lg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .coin-name {
   color: var(--text-secondary);
   font-size: var(--font-size-md);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .add-coin-btn {
@@ -410,6 +423,8 @@
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
+  flex-shrink: 0;
+  margin-left: 1rem;
 }
 
 .add-coin-btn:hover {
@@ -554,12 +569,12 @@
 
 .holding-item .holding-name,
 .transaction-item .tx-primary {
-  font-size: 14px;
+  font-size: var(--font-size-md);
 }
 
 .holding-item .coin-amount,
 .transaction-item .amount {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--text-secondary);
   display: block;
   margin-top: 0.25rem;
@@ -567,7 +582,7 @@
 
 .holding-item .value,
 .transaction-item .value {
-  font-size: 16px;
+  font-size: var(--font-size-md);
   color: var(--color-yellow-400);
   font-weight: bold;
   display: block;
@@ -594,7 +609,7 @@
 }
 
 .coin-list h3 {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   color: var(--color-yellow-400);
   margin-bottom: 1rem;
 }
@@ -606,7 +621,7 @@
   border: 1px solid var(--color-yellow-border);
   border-radius: var(--border-radius-md);
   color: var(--text-primary);
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
 }
 
 .coin-list-item {
@@ -617,11 +632,11 @@
 }
 
 .coin-symbol {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
 }
 
 .coin-name {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
 }
 
 .add-coin-btn {
