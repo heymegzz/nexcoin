@@ -592,12 +592,13 @@
 
 .holding-item .holding-name,
 .transaction-item .tx-primary {
-  font-size: var(--font-size-md);
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .holding-item .coin-amount,
 .transaction-item .amount {
-  font-size: var(--font-size-sm);
+  font-size: 0.75rem;
   color: var(--text-secondary);
   display: block;
   margin-top: 0.25rem;
@@ -605,7 +606,7 @@
 
 .holding-item .value,
 .transaction-item .value {
-  font-size: var(--font-size-md);
+  font-size: 0.875rem;
   color: var(--color-yellow-400);
   font-weight: bold;
   display: block;
@@ -634,9 +635,10 @@
 }
 
 .coin-list h3 {
-  font-size: var(--font-size-md);
+  font-size: 0.875rem;
   color: var(--color-yellow-400);
   margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .search-input {
@@ -646,7 +648,7 @@
   border: 1px solid var(--color-yellow-border);
   border-radius: var(--border-radius-md);
   color: var(--text-primary);
-  font-size: var(--font-size-sm);
+  font-size: 0.75rem;
 }
 
 .coin-list-item {
@@ -657,20 +659,22 @@
 }
 
 .coin-symbol {
-  font-size: var(--font-size-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 .coin-name {
-  font-size: var(--font-size-xs);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
 }
 
 .add-coin-btn {
   padding: 0.5rem 1rem;
-  font-size: var(--font-size-sm);
+  font-size: 0.75rem;
 }
 
 .close-btn {
-  font-size: var(--font-size-md);
+  font-size: 0.875rem;
   padding: 0.75rem;
   margin-top: 1.5rem;
 }
@@ -687,7 +691,7 @@
 .searching-state,
 .no-results,
 .search-prompt {
-  font-size: var(--font-size-md);
+  font-size: 0.75rem;
   color: var(--text-secondary);
   text-align: center;
   padding: 1rem;
